@@ -1,0 +1,256 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Board Members - EIP
+Ethiopia{% endblock %} {% block meta_description %}Meet the dedicated board
+members who guide EIP Ethiopia's vision and strategic direction.{% endblock %}
+{% block page_title %}Board Members{% endblock %} {% block page_subtitle %}The
+leadership guiding our vision and strategic direction{% endblock %} {% block
+breadcrumb_items %}
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <a
+      href="{% url 'about_board_members' %}"
+      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+    >
+      Board Members
+    </a>
+  </div>
+</li>
+{% endblock %} {% block content %}
+<div class="max-w-6xl mx-auto">
+  <!-- Introduction -->
+  <div class="mb-12 text-center">
+    <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+      Our Board of Directors brings together diverse expertise and experience to
+      provide strategic guidance and oversight for EIP Ethiopia's mission and
+      operations.
+    </p>
+  </div>
+
+  <!-- Board Members Grid -->
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+    {% for member in members %}
+    <div
+      class="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift animate-on-scroll"
+    >
+      {% if member.photo %}
+      <div class="h-64 overflow-hidden">
+        <img
+          src="{{ member.photo.url }}"
+          alt="{{ member.name }}"
+          class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+        />
+      </div>
+      {% else %}
+      <div class="h-64 bg-blue-100 flex items-center justify-center">
+        <i class="fas fa-user text-6xl text-blue-600"></i>
+      </div>
+      {% endif %}
+
+      <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-800 mb-1">{{ member.name }}</h3>
+        <p class="text-blue-600 font-medium mb-4">{{ member.position }}</p>
+
+        <div class="prose prose-sm max-w-none mb-4">
+          {{ member.bio|safe|truncatewords:30 }}
+        </div>
+
+        <a
+          href="#"
+          class="text-blue-600 hover:text-blue-800 text-sm font-medium inline-flex items-center"
+          onclick="showMemberDetails('{{ member.name|escapejs }}', '{{ member.position|escapejs }}', '{{ member.bio|escapejs|safe }}'); return false;"
+        >
+          Read Full Bio <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-span-3 text-center py-12">
+      <i class="fas fa-users text-5xl text-gray-400 mb-4"></i>
+      <h3 class="text-xl font-semibold text-gray-600 mb-2">
+        Board Information
+      </h3>
+      <p class="text-gray-500">
+        Board member information will be available soon.
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Board Structure -->
+  <div class="bg-gray-50 rounded-2xl p-8 mb-16">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+      Board Structure & Committees
+    </h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-xl">
+        <h4 class="font-bold text-lg mb-3 text-blue-600">
+          <i class="fas fa-gavel mr-2"></i> Executive Committee
+        </h4>
+        <p class="text-gray-600 text-sm mb-3">
+          Provides overall leadership and strategic direction.
+        </p>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Strategic planning</li>
+          <li>• Financial oversight</li>
+          <li>• Executive decisions</li>
+        </ul>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl">
+        <h4 class="font-bold text-lg mb-3 text-green-600">
+          <i class="fas fa-chart-line mr-2"></i> Program Committee
+        </h4>
+        <p class="text-gray-600 text-sm mb-3">
+          Oversees program development and implementation.
+        </p>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Program evaluation</li>
+          <li>• Impact assessment</li>
+          <li>• Quality assurance</li>
+        </ul>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl">
+        <h4 class="font-bold text-lg mb-3 text-purple-600">
+          <i class="fas fa-hand-holding-usd mr-2"></i> Finance Committee
+        </h4>
+        <p class="text-gray-600 text-sm mb-3">
+          Manages financial planning and resource allocation.
+        </p>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Budget approval</li>
+          <li>• Financial reporting</li>
+          <li>• Audit oversight</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Board Responsibilities -->
+  <div class="mb-16">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+      Board Responsibilities
+    </h2>
+    <div class="bg-white rounded-xl shadow-md p-6">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h4 class="font-bold text-lg mb-3 text-blue-600">
+            Governance & Oversight
+          </h4>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+              <span>Setting organizational strategy</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+              <span>Ensuring legal compliance</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+              <span>Monitoring organizational performance</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-lg mb-3 text-green-600">
+            Resource Stewardship
+          </h4>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+              <span>Financial oversight and accountability</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+              <span>Fundraising and resource mobilization</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+              <span>Risk management</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center">
+    <a
+      href="{% url 'about_strategies' %}"
+      class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+    >
+      <i class="fas fa-arrow-left mr-2"></i> Strategies & Priorities
+    </a>
+    <a
+      href="{% url 'what_we_do' %}"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center"
+    >
+      Our Work <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Modal for Member Details -->
+<div
+  id="memberModal"
+  class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 overflow-y-auto"
+>
+  <div class="min-h-screen px-4 flex items-center justify-center">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-8">
+      <div class="flex justify-between items-start mb-6">
+        <div>
+          <h3 id="modalName" class="text-2xl font-bold text-gray-800"></h3>
+          <p id="modalPosition" class="text-blue-600 font-medium"></p>
+        </div>
+        <button
+          onclick="closeMemberModal()"
+          class="text-gray-400 hover:text-gray-600"
+        >
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+      </div>
+      <div id="modalBio" class="prose max-w-none mb-6"></div>
+      <div class="text-right">
+        <button
+          onclick="closeMemberModal()"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showMemberDetails(name, position, bio) {
+    document.getElementById("modalName").textContent = name;
+    document.getElementById("modalPosition").textContent = position;
+    document.getElementById("modalBio").innerHTML = bio;
+    document.getElementById("memberModal").classList.remove("hidden");
+  }
+
+  function closeMemberModal() {
+    document.getElementById("memberModal").classList.add("hidden");
+  }
+
+  // Close modal on ESC key
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeMemberModal();
+    }
+  });
+
+  // Close modal on background click
+  document
+    .getElementById("memberModal")
+    .addEventListener("click", function (event) {
+      if (event.target === this) {
+        closeMemberModal();
+      }
+    });
+</script>
+{% endblock %}

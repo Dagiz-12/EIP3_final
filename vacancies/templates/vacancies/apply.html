@@ -1,0 +1,337 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Apply for {{
+vacancy.title }} - EIP Ethiopia{% endblock %} {% block meta_description %}Apply
+for the {{ vacancy.title }} position at EIP Ethiopia. Submit your application
+online.{% endblock %} {% block breadcrumb_items %}
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <a
+      href="{% url 'vacancies_list' %}"
+      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+    >
+      Vacancies
+    </a>
+  </div>
+</li>
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <a
+      href="{% url 'vacancy_detail' vacancy.slug %}"
+      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+    >
+      {{ vacancy.title|truncatechars:20 }}
+    </a>
+  </div>
+</li>
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Apply</span>
+  </div>
+</li>
+{% endblock %} {% block content %}
+<div class="max-w-4xl mx-auto">
+  <!-- Application Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Apply for Position</h1>
+    <h2 class="text-xl text-blue-600 font-semibold mb-4">
+      {{ vacancy.title }}
+    </h2>
+
+    {% if vacancy.deadline < today %}
+    <div class="p-4 bg-red-50 border border-red-200 rounded-lg mb-6">
+      <div class="flex items-center">
+        <i class="fas fa-exclamation-circle text-red-500 text-xl mr-3"></i>
+        <div>
+          <h3 class="font-bold text-red-800">Application Closed</h3>
+          <p class="text-red-600">
+            The application deadline for this position has passed.
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Application Form -->
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+    {% if vacancy.deadline >= today %}
+    <div class="p-8">
+      <form method="POST" enctype="multipart/form-data" id="application-form">
+        {% csrf_token %}
+
+        <!-- Personal Information -->
+        <div class="mb-8">
+          <h3 class="text-xl font-bold text-gray-800 mb-6 pb-2 border-b">
+            Personal Information
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label
+                for="id_full_name"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Full Name *
+              </label>
+              {{ form.full_name }} {% if form.full_name.errors %}
+              <p class="mt-1 text-sm text-red-600">
+                {{ form.full_name.errors.0 }}
+              </p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label
+                for="id_email"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Email Address *
+              </label>
+              {{ form.email }} {% if form.email.errors %}
+              <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label
+                for="id_phone"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Phone Number *
+              </label>
+              {{ form.phone }} {% if form.phone.errors %}
+              <p class="mt-1 text-sm text-red-600">{{ form.phone.errors.0 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Documents -->
+        <div class="mb-8">
+          <h3 class="text-xl font-bold text-gray-800 mb-6 pb-2 border-b">
+            Documents
+          </h3>
+
+          <!-- Resume -->
+          <div class="mb-6">
+            <label
+              for="id_resume"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Resume/CV *
+              <span class="text-gray-500 text-xs"
+                >(PDF, DOC, DOCX - Max 5MB)</span
+              >
+            </label>
+            {{ form.resume }} {% if form.resume.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.resume.errors.0 }}</p>
+            {% endif %}
+            <div id="resume-preview" class="mt-2 hidden">
+              <p class="text-sm text-gray-600">
+                Selected file: <span id="resume-filename"></span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Additional Documents -->
+          <div>
+            <label
+              for="id_additional_documents"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Additional Documents
+              <span class="text-gray-500 text-xs"
+                >(Optional: Certificates, portfolio, etc.)</span
+              >
+            </label>
+            {{ form.additional_documents }} {% if
+            form.additional_documents.errors %}
+            <p class="mt-1 text-sm text-red-600">
+              {{ form.additional_documents.errors.0 }}
+            </p>
+            {% endif %}
+            <div id="additional-docs-preview" class="mt-2 hidden">
+              <p class="text-sm text-gray-600">
+                Selected file: <span id="additional-docs-filename"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cover Letter -->
+        <div class="mb-8">
+          <h3 class="text-xl font-bold text-gray-800 mb-6 pb-2 border-b">
+            Cover Letter
+          </h3>
+
+          <div>
+            <label
+              for="id_cover_letter"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Why are you interested in this position? *
+              <span class="text-gray-500 text-xs"
+                >(Tell us about your motivation and relevant experience)</span
+              >
+            </label>
+            {{ form.cover_letter }} {% if form.cover_letter.errors %}
+            <p class="mt-1 text-sm text-red-600">
+              {{ form.cover_letter.errors.0 }}
+            </p>
+            {% endif %}
+            <div class="mt-2 flex justify-between">
+              <span class="text-xs text-gray-500">Minimum 100 characters</span>
+              <span id="cover-letter-count" class="text-xs text-gray-500"
+                >0 characters</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Consent -->
+        <div class="mb-8 p-4 bg-blue-50 rounded-lg">
+          <div class="flex items-start">
+            <div class="flex items-center h-5">
+              <input
+                id="consent"
+                name="consent"
+                type="checkbox"
+                required
+                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+            </div>
+            <div class="ml-3">
+              <label for="consent" class="text-sm text-gray-700">
+                I confirm that the information provided is accurate and
+                complete. I understand that EIP Ethiopia will process my
+                personal data in accordance with their privacy policy for
+                recruitment purposes.
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-between items-center pt-8 border-t">
+          <a
+            href="{% url 'vacancy_detail' vacancy.slug %}"
+            class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+          >
+            <i class="fas fa-arrow-left mr-2"></i> Back to Position
+          </a>
+
+          <button
+            type="submit"
+            id="submit-application"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition duration-300 inline-flex items-center"
+          >
+            <i class="fas fa-paper-plane mr-2"></i> Submit Application
+          </button>
+        </div>
+      </form>
+    </div>
+    {% else %}
+    <!-- Application Closed -->
+    <div class="p-8 text-center">
+      <div class="text-gray-400 text-6xl mb-4">
+        <i class="fas fa-calendar-times"></i>
+      </div>
+      <h3 class="text-xl font-semibold text-gray-600 mb-2">
+        Application Closed
+      </h3>
+      <p class="text-gray-500 mb-6">
+        The application deadline for this position has passed.
+      </p>
+      <a
+        href="{% url 'vacancies_list' %}"
+        class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+      >
+        View Current Openings
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Application Tips -->
+  <div class="mt-8 bg-gray-50 rounded-xl p-6">
+    <h3 class="font-bold text-gray-800 mb-4">Application Tips</h3>
+    <ul class="space-y-2 text-sm text-gray-600">
+      <li class="flex items-start">
+        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+        <span>Ensure your CV is up-to-date and tailored to this position</span>
+      </li>
+      <li class="flex items-start">
+        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+        <span
+          >Write a specific cover letter explaining your interest in this
+          role</span
+        >
+      </li>
+      <li class="flex items-start">
+        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+        <span>Highlight relevant experience and achievements</span>
+      </li>
+      <li class="flex items-start">
+        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+        <span>Save your application before the deadline</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // File input preview
+  document.getElementById("id_resume").addEventListener("change", function (e) {
+    const file = this.files[0];
+    const preview = document.getElementById("resume-preview");
+    const filename = document.getElementById("resume-filename");
+
+    if (file) {
+      filename.textContent = file.name;
+      preview.classList.remove("hidden");
+    } else {
+      preview.classList.add("hidden");
+    }
+  });
+
+  document
+    .getElementById("id_additional_documents")
+    .addEventListener("change", function (e) {
+      const file = this.files[0];
+      const preview = document.getElementById("additional-docs-preview");
+      const filename = document.getElementById("additional-docs-filename");
+
+      if (file) {
+        filename.textContent = file.name;
+        preview.classList.remove("hidden");
+      } else {
+        preview.classList.add("hidden");
+      }
+    });
+
+  // Cover letter character count
+  const coverLetterTextarea = document.getElementById("id_cover_letter");
+  const charCount = document.getElementById("cover-letter-count");
+
+  coverLetterTextarea.addEventListener("input", function () {
+    charCount.textContent = this.value.length + " characters";
+  });
+
+  // Form submission
+  document
+    .getElementById("application-form")
+    ?.addEventListener("submit", function (e) {
+      const submitBtn = document.getElementById("submit-application");
+      const originalText = submitBtn.innerHTML;
+
+      // Show loading
+      submitBtn.innerHTML =
+        '<i class="fas fa-spinner fa-spin mr-2"></i> Submitting...';
+      submitBtn.disabled = true;
+
+      // Form will submit normally, this just shows loading state
+    });
+</script>
+{% endblock %}

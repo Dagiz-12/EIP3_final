@@ -1,0 +1,95 @@
+<div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg">
+  <div class="px-4 py-3 space-y-1">
+    <a
+      href="{% url 'home' %}"
+      class="block py-3 px-3 rounded-lg {% if request.path == '/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+    >
+      <i class="fas fa-home mr-3 w-6 text-center"></i> Home
+    </a>
+
+    <div class="border-t pt-2">
+      <p class="px-3 py-2 text-sm font-semibold text-gray-500">About Us</p>
+      <a
+        href="{% url 'about_who_we_are' %}"
+        class="block py-2 px-6 rounded-lg {% if request.path == '/about/who-we-are/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+      >
+        Who We Are
+      </a>
+      <a
+        href="{% url 'about_guiding_principles' %}"
+        class="block py-2 px-6 rounded-lg {% if request.path == '/about/guiding-principles/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+      >
+        Guiding Principles
+      </a>
+      <a
+        href="{% url 'about_strategies' %}"
+        class="block py-2 px-6 rounded-lg {% if request.path == '/about/strategies/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+      >
+        Strategies & Priorities
+      </a>
+      <a
+        href="{% url 'about_board_members' %}"
+        class="block py-2 px-6 rounded-lg {% if request.path == '/about/board-members/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+      >
+        Board Members
+      </a>
+    </div>
+
+    <a
+      href="{% url 'what_we_do' %}"
+      class="block py-3 px-3 rounded-lg {% if request.path == '/what-we-do/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+    >
+      <i class="fas fa-project-diagram mr-3 w-6 text-center"></i> What We Do
+    </a>
+
+    <div class="border-t pt-2">
+      <p class="px-3 py-2 text-sm font-semibold text-gray-500">Media</p>
+      <a
+        href="{% url 'publications_list' %}"
+        class="block py-2 px-6 rounded-lg {% if request.path == '/publications/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+      >
+        Publications
+      </a>
+      <a
+        href="{% url 'blog_list' %}?type=news"
+        class="block py-2 px-6 rounded-lg {% if 'type=news' in request.GET.urlencode %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+      >
+        News
+      </a>
+      <a
+        href="{% url 'blog_list' %}"
+        class="block py-2 px-6 rounded-lg {% if request.path == '/blog/' and 'type=news' not in request.GET.urlencode %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+      >
+        Blog
+      </a>
+    </div>
+
+    <a
+      href="{% url 'vacancies_list' %}"
+      class="block py-3 px-3 rounded-lg {% if '/vacancies/' in request.path %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+    >
+      <i class="fas fa-briefcase mr-3 w-6 text-center"></i> Vacancies
+    </a>
+
+    <a
+      href="{% url 'contact' %}"
+      class="block py-3 px-3 rounded-lg {% if request.path == '/contact/' %}bg-blue-50 text-blue-600 font-semibold{% else %}hover:bg-gray-50{% endif %}"
+    >
+      <i class="fas fa-envelope mr-3 w-6 text-center"></i> Contact
+    </a>
+
+    <!-- Mobile Search -->
+    <div class="border-t pt-3">
+      <form method="GET" action="{% url 'blog_list' %}" class="relative">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search..."
+          value="{{ request.GET.q }}"
+          class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+      </form>
+    </div>
+  </div>
+</div>

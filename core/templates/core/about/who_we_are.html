@@ -1,0 +1,242 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Who We Are - EIP
+Ethiopia{% endblock %} {% block meta_description %}Learn about EIP Ethiopia's
+history, mission, vision, and our journey in empowering Ethiopian communities
+since 2005.{% endblock %} {% block page_title %}Who We Are{% endblock %} {%
+block page_subtitle %}Our journey, mission, and vision for a better Ethiopia{%
+endblock %} {% block breadcrumb_items %}
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <a
+      href="{% url 'about_who_we_are' %}"
+      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+    >
+      Who We Are
+    </a>
+  </div>
+</li>
+{% endblock %} {% block content %}
+<div class="max-w-6xl mx-auto">
+  <!-- History Section -->
+  <div class="mb-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+      Our History
+    </h2>
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="animate-on-scroll">
+        <div class="bg-blue-50 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold text-blue-800 mb-4">
+            From Humble Beginnings
+          </h3>
+          <p class="text-gray-700 mb-4">
+            Founded in 2005 by a group of passionate Ethiopian professionals,
+            EIP Ethiopia began as a small community initiative in Addis Ababa.
+            Our founders recognized the need for sustainable, community-driven
+            development programs that address root causes rather than symptoms.
+          </p>
+          <p class="text-gray-700 mb-4">
+            What started as a volunteer-based organization working in two
+            communities has grown into a nationally recognized non-profit
+            operating in multiple regions across Ethiopia.
+          </p>
+          <div class="grid grid-cols-3 gap-4 mt-6">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-600">15+</div>
+              <div class="text-sm text-gray-600">Years of Service</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-600">50+</div>
+              <div class="text-sm text-gray-600">Projects Completed</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-600">10+</div>
+              <div class="text-sm text-gray-600">Regions Covered</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="animate-on-scroll animate-delay-200">
+        <div class="relative">
+          <div class="bg-gray-200 rounded-2xl h-80 overflow-hidden">
+            <!-- You can add an image here -->
+            <div
+              class="w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center"
+            >
+              <i class="fas fa-history text-white text-6xl"></i>
+            </div>
+          </div>
+          <div
+            class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg w-3/4"
+          >
+            <h4 class="font-bold text-lg mb-2">Milestone Achievements</h4>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                <span>2005: Organization founded</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                <span>2010: Expanded to 3 regions</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                <span>2015: Reached 100,000 beneficiaries</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission & Vision -->
+  <div class="mb-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+      Our Mission & Vision
+    </h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div
+        class="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-2xl p-8 animate-on-scroll"
+      >
+        <div class="text-4xl mb-4">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+        <p class="text-blue-100 mb-6">
+          To empower Ethiopian communities through sustainable development
+          initiatives that promote education, healthcare, economic empowerment,
+          and environmental conservation, fostering self-reliance and improved
+          quality of life.
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-start">
+            <i class="fas fa-check-circle mt-1 mr-2"></i>
+            <span>Promote sustainable community development</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle mt-1 mr-2"></i>
+            <span>Foster education and capacity building</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle mt-1 mr-2"></i>
+            <span>Improve access to healthcare services</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle mt-1 mr-2"></i>
+            <span>Support economic empowerment initiatives</span>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-8 animate-on-scroll animate-delay-200"
+      >
+        <div class="text-4xl mb-4">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4">Our Vision</h3>
+        <p class="text-teal-100 mb-6">
+          To see a prosperous Ethiopia where all communities have access to
+          opportunities, resources, and support needed to achieve sustainable
+          development and improved quality of life.
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-start">
+            <i class="fas fa-star mt-1 mr-2"></i>
+            <span>Self-reliant communities across Ethiopia</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star mt-1 mr-2"></i>
+            <span>Equitable access to education and healthcare</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star mt-1 mr-2"></i>
+            <span>Sustainable environmental practices</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star mt-1 mr-2"></i>
+            <span>Strong local economies and livelihoods</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Values -->
+  <div class="mb-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+      Our Core Values
+    </h2>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="fas fa-handshake"></i>
+        </div>
+        <h4 class="font-bold text-lg mb-2">Integrity</h4>
+        <p class="text-gray-600 text-sm">
+          We maintain the highest ethical standards in all our work.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="fas fa-users"></i>
+        </div>
+        <h4 class="font-bold text-lg mb-2">Community First</h4>
+        <p class="text-gray-600 text-sm">
+          Communities are at the center of all our initiatives.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <h4 class="font-bold text-lg mb-2">Sustainability</h4>
+        <p class="text-gray-600 text-sm">
+          We create programs with long-term impact in mind.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h4 class="font-bold text-lg mb-2">Accountability</h4>
+        <p class="text-gray-600 text-sm">
+          We are transparent and accountable to our stakeholders.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="text-center bg-gray-50 rounded-2xl p-8">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Want to Learn More?</h3>
+    <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+      Explore our guiding principles, strategies, and meet our board members to
+      get a complete picture of who we are.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a
+        href="{% url 'about_guiding_principles' %}"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+      >
+        Guiding Principles
+      </a>
+      <a
+        href="{% url 'about_strategies' %}"
+        class="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition duration-300"
+      >
+        Our Strategies
+      </a>
+      <a
+        href="{% url 'about_board_members' %}"
+        class="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition duration-300"
+      >
+        Board Members
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

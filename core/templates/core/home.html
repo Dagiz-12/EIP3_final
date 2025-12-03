@@ -1,0 +1,117 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Home - EIP
+Ethiopia{% endblock %} {% block meta_description %} Empowering Ethiopian
+communities through sustainable development initiatives, education, and
+healthcare programs. {% endblock %} {% block extra_css %}
+<style>
+  .hero-slider {
+    height: 70vh;
+    min-height: 600px;
+  }
+
+  .hero-slide {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .slide-overlay {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+  }
+
+  .principle-card {
+    transition: all 0.3s ease;
+    border-left: 4px solid #2c5282;
+  }
+
+  .principle-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+</style>
+{% endblock %} {% block content %}
+<!-- Hero Slider -->
+<div class="hero-slider relative overflow-hidden">
+  <div class="swiper-container h-full">
+    <div class="swiper-wrapper">
+      {% for slide in slider_images %}
+      <div class="swiper-slide">
+        <div
+          class="hero-slide h-full"
+          style="background-image: url('{% if slide.image %}{{ slide.image.url }}{% else %}{% static 'images/default-slide.jpg' %}{% endif %}')"
+        >
+          <div class="slide-overlay h-full flex items-center">
+            <div class="container mx-auto px-4 text-white">
+              <div class="max-w-2xl animate-on-scroll">
+                <h1 class="text-5xl font-bold mb-4">{{ slide.title }}</h1>
+                <p class="text-xl mb-8">{{ slide.description }}</p>
+                {% if slide.link %}
+                <a
+                  href="{{ slide.link }}"
+                  class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105"
+                >
+                  Learn More <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Slider Controls -->
+    <div
+      class="swiper-button-next text-white bg-black/20 hover:bg-black/40 rounded-full w-12 h-12"
+    ></div>
+    <div
+      class="swiper-button-prev text-white bg-black/20 hover:bg-black/40 rounded-full w-12 h-12"
+    ></div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<!-- Quick Stats -->
+<section class="py-12 bg-blue-700 text-white">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="animate-on-scroll">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="15" data-suffix="+">0</span>
+        </div>
+        <p class="text-blue-200">Years of Service</p>
+      </div>
+      <div class="animate-on-scroll animate-delay-100">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="50" data-suffix="+">0</span>
+        </div>
+        <p class="text-blue-200">Projects Completed</p>
+      </div>
+      <div class="animate-on-scroll animate-delay-200">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="100" data-suffix="K+">0</span>
+        </div>
+        <p class="text-blue-200">People Impacted</p>
+      </div>
+      <div class="animate-on-scroll animate-delay-300">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="25" data-suffix="+">0</span>
+        </div>
+        <p class="text-blue-200">Partners</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Rest of the home page content remains the same -->
+{% include 'core/partials/quick_about.html' %} {% include
+'core/partials/guiding_principles.html' %} {% include
+'core/partials/recent_news.html' %} {% include 'core/partials/partners.html' %}
+{% include 'core/partials/cta.html' %} {% endblock %} {% block extra_js %}
+<!-- Home page specific JavaScript -->
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

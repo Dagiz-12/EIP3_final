@@ -1,0 +1,370 @@
+{% extends 'base.html' %} {% load static %} {% block title %}What We Do - EIP
+Ethiopia{% endblock %} {% block meta_description %}Explore EIP Ethiopia's
+projects and initiatives in sustainable development, education, healthcare, and
+economic empowerment across Ethiopia.{% endblock %} {% block page_title %}What
+We Do{% endblock %} {% block page_subtitle %}Our projects and initiatives for
+sustainable community development{% endblock %} {% block breadcrumb_items %}
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <a
+      href="{% url 'what_we_do' %}"
+      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+    >
+      What We Do
+    </a>
+  </div>
+</li>
+{% endblock %} {% block content %}
+<div class="max-w-7xl mx-auto">
+  <!-- Introduction -->
+  <div class="mb-12">
+    <div class="prose prose-lg max-w-none">
+      <p class="text-lg text-gray-700">
+        EIP Ethiopia implements a wide range of projects focused on sustainable
+        development across Ethiopia. Our work spans education, healthcare,
+        economic empowerment, and environmental conservation, always with a
+        community-centered approach.
+      </p>
+    </div>
+  </div>
+
+  <!-- Program Areas -->
+  <div class="mb-16">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8">Our Program Areas</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div
+        class="bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-xl p-6 hover-lift"
+      >
+        <div class="text-4xl mb-4">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Education</h3>
+        <p class="text-blue-100 text-sm mb-4">
+          Improving access to quality education and skills training
+        </p>
+        <ul class="text-sm space-y-1">
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>School infrastructure development</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Teacher training programs</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Vocational skills training</span>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="bg-gradient-to-br from-green-500 to-green-700 text-white rounded-xl p-6 hover-lift"
+      >
+        <div class="text-4xl mb-4">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Healthcare</h3>
+        <p class="text-green-100 text-sm mb-4">
+          Improving health outcomes and access to care
+        </p>
+        <ul class="text-sm space-y-1">
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Mobile health clinics</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Health education programs</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Maternal and child health</span>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="bg-gradient-to-br from-yellow-500 to-yellow-700 text-white rounded-xl p-6 hover-lift"
+      >
+        <div class="text-4xl mb-4">
+          <i class="fas fa-hand-holding-usd"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Economic Empowerment</h3>
+        <p class="text-yellow-100 text-sm mb-4">
+          Creating sustainable livelihoods and income
+        </p>
+        <ul class="text-sm space-y-1">
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Microfinance initiatives</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Agricultural support</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Small business training</span>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-xl p-6 hover-lift"
+      >
+        <div class="text-4xl mb-4">
+          <i class="fas fa-tree"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Environment</h3>
+        <p class="text-teal-100 text-sm mb-4">
+          Promoting sustainable resource management
+        </p>
+        <ul class="text-sm space-y-1">
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Reforestation projects</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Water conservation</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check mr-2 mt-1"></i>
+            <span>Renewable energy</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="mb-16">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-2xl font-bold text-gray-800">Featured Projects</h2>
+      <a
+        href="{% url 'blog_list' %}?categories=project"
+        class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+      >
+        View All Projects <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+
+    {% if projects %}
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for project in projects %}
+      <div
+        class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift animate-on-scroll"
+      >
+        {% if project.featured_image %}
+        <div class="h-48 overflow-hidden">
+          <img
+            src="{{ project.featured_image.url }}"
+            alt="{{ project.title }}"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+          />
+        </div>
+        {% else %}
+        <div class="h-48 bg-blue-100 flex items-center justify-center">
+          <i class="fas fa-project-diagram text-5xl text-blue-600"></i>
+        </div>
+        {% endif %}
+
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-3">
+            <span
+              class="inline-flex items-center px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full"
+            >
+              <i class="fas fa-map-marker-alt mr-1"></i>
+              Multiple Regions
+            </span>
+            <span class="text-xs text-gray-500">
+              {{ project.published_date|date:"M Y" }}
+            </span>
+          </div>
+
+          <h3 class="text-xl font-semibold mb-3">{{ project.title }}</h3>
+          <p class="text-gray-600 mb-4 line-clamp-3">{{ project.excerpt }}</p>
+
+          <div class="flex justify-between items-center">
+            <a
+              href="{% url 'blog_detail' project.slug %}"
+              class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+            >
+              Learn More <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+
+            <div class="text-sm text-gray-500">
+              <i class="fas fa-eye mr-1"></i>{{ project.views }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-12 bg-gray-50 rounded-xl">
+      <i class="fas fa-project-diagram text-5xl text-gray-400 mb-4"></i>
+      <h3 class="text-xl font-semibold text-gray-600 mb-2">
+        Project Information
+      </h3>
+      <p class="text-gray-500 mb-6">
+        Detailed project information will be available soon.
+      </p>
+      <a
+        href="{% url 'blog_list' %}"
+        class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+      >
+        <i class="fas fa-newspaper mr-2"></i>
+        View Our Blog
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Impact Statistics -->
+  <div
+    class="mb-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-2xl p-8"
+  >
+    <h2 class="text-2xl font-bold mb-8 text-center">Our Impact</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="100">0</span>K+
+        </div>
+        <p class="text-blue-200">People Impacted</p>
+      </div>
+
+      <div class="text-center">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="50">0</span>+
+        </div>
+        <p class="text-blue-200">Projects Completed</p>
+      </div>
+
+      <div class="text-center">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="25">0</span>+
+        </div>
+        <p class="text-blue-200">Partner Organizations</p>
+      </div>
+
+      <div class="text-center">
+        <div class="text-4xl font-bold mb-2">
+          <span class="counter" data-value="10">0</span>+
+        </div>
+        <p class="text-blue-200">Regions Covered</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approach -->
+  <div class="mb-16">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8">Our Approach</h2>
+    <div class="bg-white rounded-xl shadow-md p-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="text-blue-600 text-4xl mb-4">
+            <i class="fas fa-users"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-3">Community-Led</h4>
+          <p class="text-gray-600">
+            We work with communities to identify needs and co-create solutions
+            that are culturally appropriate and sustainable.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="text-blue-600 text-4xl mb-4">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-3">Partnership-Based</h4>
+          <p class="text-gray-600">
+            We collaborate with local organizations, government agencies, and
+            international partners to maximize impact.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="text-blue-600 text-4xl mb-4">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-3">Evidence-Driven</h4>
+          <p class="text-gray-600">
+            All our programs are monitored and evaluated to ensure effectiveness
+            and continuous improvement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="text-center bg-gray-50 rounded-2xl p-8">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Get Involved</h3>
+    <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+      Whether you want to support our work, volunteer, or partner with us, there
+      are many ways to contribute to our mission.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a
+        href="{% url 'contact' %}"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center"
+      >
+        <i class="fas fa-envelope mr-2"></i> Contact Us
+      </a>
+      <a
+        href="{% url 'vacancies_list' %}"
+        class="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center"
+      >
+        <i class="fas fa-briefcase mr-2"></i> View Vacancies
+      </a>
+      <a
+        href="{% url 'publications_list' %}"
+        class="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center"
+      >
+        <i class="fas fa-download mr-2"></i> Download Resources
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Counter animation
+  document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".counter");
+
+    counters.forEach((counter) => {
+      const target = parseInt(counter.dataset.value);
+      const increment = target / 100;
+      let current = 0;
+
+      const updateCounter = () => {
+        if (current < target) {
+          current += increment;
+          counter.textContent = Math.floor(current);
+          setTimeout(updateCounter, 20);
+        } else {
+          counter.textContent = target;
+        }
+      };
+
+      // Start counter when element is in viewport
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              updateCounter();
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(counter);
+    });
+  });
+</script>
+{% endblock %}

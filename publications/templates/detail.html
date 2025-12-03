@@ -1,0 +1,278 @@
+{% extends 'base.html' %} {% load static %} {% block title %}{{
+publication.title }} - Publications - EIP Ethiopia{% endblock %} {% block
+meta_description %}{{ publication.description|striptags|truncatechars:160 }}{%
+endblock %} {% block og_title %}{{ publication.title }}{% endblock %} {% block
+og_description %}{{ publication.description|striptags|truncatechars:160 }}{%
+endblock %} {% block og_image %}{% if publication.cover_image %}{{
+publication.cover_image.url }}{% else %}{% static 'images/og-image.jpg' %}{%
+endif %}{% endblock %} {% block breadcrumb_items %}
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <a
+      href="{% url 'publications_list' %}"
+      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+    >
+      Publications
+    </a>
+  </div>
+</li>
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <a
+      href="{% url 'publications_list' %}?category={{ publication.category.slug }}"
+      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+    >
+      {{ publication.category.name }}
+    </a>
+  </div>
+</li>
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2"
+      >{{ publication.title|truncatechars:30 }}</span
+    >
+  </div>
+</li>
+{% endblock %} {% block content %}
+<div class="max-w-4xl mx-auto">
+  <!-- Publication Header -->
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+    <div class="md:flex">
+      <!-- Cover Image -->
+      <div class="md:w-1/3">
+        {% if publication.cover_image %}
+        <img
+          src="{{ publication.cover_image.url }}"
+          alt="{{ publication.title }}"
+          class="w-full h-64 md:h-full object-cover"
+        />
+        {% else %}
+        <div
+          class="w-full h-64 md:h-full bg-blue-100 flex items-center justify-center"
+        >
+          <i class="fas fa-file-pdf text-8xl text-blue-600"></i>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Publication Info -->
+      <div class="md:w-2/3 p-8">
+        <!-- Category and Featured Badge -->
+        <div class="flex items-center justify-between mb-4">
+          <a
+            href="{% url 'publications_list' %}?category={{ publication.category.slug }}"
+            class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full"
+          >
+            <i class="fas fa-folder mr-2"></i>
+            {{ publication.category.name }}
+          </a>
+
+          {% if publication.is_featured %}
+          <span
+            class="px-3 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full"
+          >
+            <i class="fas fa-star mr-1"></i> Featured
+          </span>
+          {% endif %}
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+          {{ publication.title }}
+        </h1>
+
+        <!-- Meta Information -->
+        <div class="flex items-center space-x-6 text-gray-500 mb-6">
+          <span class="inline-flex items-center">
+            <i class="far fa-calendar mr-2"></i>
+            Published: {{ publication.published_date|date:"F j, Y" }}
+          </span>
+          <span class="inline-flex items-center">
+            <i class="fas fa-download mr-2"></i>
+            {{ publication.download_count }} downloads
+          </span>
+        </div>
+
+        <!-- Description -->
+        <div class="prose prose-blue max-w-none mb-8">
+          {{ publication.description|safe }}
+        </div>
+
+        <!-- Download Button -->
+        <div class="space-y-4">
+          <a
+            href="{% url 'download_publication' publication.slug %}"
+            class="block w-full bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-lg font-bold text-center text-lg transition duration-300 transform hover:scale-105"
+            onclick="trackDownload('{{ publication.slug }}')"
+          >
+            <i class="fas fa-download mr-2"></i> Download Publication (PDF)
+          </a>
+
+          <div class="text-center text-sm text-gray-500">
+            <i class="fas fa-info-circle mr-1"></i>
+            Free download • No registration required
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Information -->
+  <div class="mb-8 bg-blue-50 rounded-xl p-6">
+    <h3 class="text-xl font-bold text-gray-800 mb-4">Publication Details</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <h4 class="font-semibold text-gray-700 mb-2">Technical Information</h4>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <i class="fas fa-file-pdf text-blue-600 mr-3 w-5"></i>
+            <span>Format: PDF Document</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-language text-blue-600 mr-3 w-5"></i>
+            <span>Language: English</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-print text-blue-600 mr-3 w-5"></i>
+            <span>Print-friendly: Yes</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-gray-700 mb-2">Usage Rights</h4>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <i class="fas fa-copyright text-blue-600 mr-3 w-5"></i>
+            <span>Copyright: EIP Ethiopia</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-share-alt text-blue-600 mr-3 w-5"></i>
+            <span>Sharing: Permitted with attribution</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-edit text-blue-600 mr-3 w-5"></i>
+            <span>Modification: Not permitted</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Publications -->
+  {% if related_publications %}
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Related Publications</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      {% for related in related_publications %}
+      <div class="bg-white rounded-lg shadow-md p-6 hover-lift">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 mr-4">
+            <div
+              class="w-12 h-16 bg-blue-100 rounded flex items-center justify-center"
+            >
+              <i class="fas fa-file-pdf text-blue-600 text-xl"></i>
+            </div>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-2">
+              <a
+                href="{% url 'publication_detail' related.slug %}"
+                class="hover:text-blue-600"
+              >
+                {{ related.title }}
+              </a>
+            </h3>
+            <p class="text-gray-500 text-sm mb-3">
+              {{ related.category.name }} • {{ related.published_date|date:"M Y"
+              }}
+            </p>
+            <a
+              href="{% url 'publication_detail' related.slug %}"
+              class="text-blue-600 hover:text-blue-800 text-sm font-medium inline-flex items-center"
+            >
+              View Details <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Share and Navigation -->
+  <div
+    class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t"
+  >
+    <!-- Share -->
+    <div class="flex items-center space-x-4">
+      <span class="text-gray-700 font-medium">Share:</span>
+      <div class="flex space-x-3">
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+          target="_blank"
+          class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a
+          href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ publication.title }}"
+          target="_blank"
+          class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500"
+        >
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ publication.title }}"
+          target="_blank"
+          class="w-10 h-10 bg-blue-700 text-white rounded-full flex items-center justify-center hover:bg-blue-800"
+        >
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a
+          href="mailto:?subject={{ publication.title }}&body={{ request.build_absolute_uri }}"
+          class="w-10 h-10 bg-gray-600 text-white rounded-full flex items-center justify-center hover:bg-gray-700"
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex space-x-4">
+      <a
+        href="{% url 'publications_list' %}?category={{ publication.category.slug }}"
+        class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+      >
+        <i class="fas fa-arrow-left mr-2"></i> Back to {{
+        publication.category.name }}
+      </a>
+      <a
+        href="{% url 'publications_list' %}"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center"
+      >
+        All Publications
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function trackDownload(slug) {
+    // Track download in analytics
+    fetch(`/api/track-download/${slug}/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": "{{ csrf_token }}",
+        "Content-Type": "application/json",
+      },
+    }).catch(() => {
+      // Silently fail if tracking doesn't work
+    });
+  }
+</script>
+{% endblock %}

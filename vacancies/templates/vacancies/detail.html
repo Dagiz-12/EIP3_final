@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ vacancy.title }} - Career Opportunities - EIP Ethiopia{% endblock %}
+
+{% block meta_description %}{{ vacancy.description|striptags|truncatechars:160 }}{% endblock %}
+
+{% block og_title %}{{ vacancy.title }} - EIP Ethiopia{% endblock %}
+
+{% block og_description %}{{ vacancy.description|striptags|truncatechars:160 }}{% endblock %}
+
+{% block breadcrumb_items %}
+<li>
+    <div class="flex items-center">
+        <i class="fas fa-chevron-right text-gray-400"></i>
+        <a href="{% url 'vacancies_list' %}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2">
+            Vacancies
+        </a>
+    </div>
+</li>
+<li>
+    <div class="flex items-center">
+        <i class="fas fa-chevron-right text-gray-400"></i>
+        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{{ vacancy.title|truncatechars:30 }}</span>
+    </div>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Job Header -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+        <div class="p-8">
+            <!-- Job Type and Location -->
+            <div class="flex flex-wrap items-center justify-between mb-6">
+                <div class="flex items-center space-x-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
+                        {% if vacancy.job_type == 'full-time' %}bg-blue-100 text-blue-800
+                        {% elif vacancy.job_type == 'part-time' %}bg-green-100 text-green-800
+                        {% elif vacancy.job_type == 'contract' %}bg-yellow-100 text-yellow-800
+                        {% else %}bg-purple-100 text-purple-800{% endif %}">
+                        <i class="fas 
+                            {% if vacancy.job_type == 'full-time' %}fa-briefcase
+                            {% elif vacancy.job_type == 'part-time' %}fa-clock
+                            {% elif vacancy.job_type == 'contract' %}fa-file-contract
+                            {% else %}fa-user-graduate{% endif %} mr-2"></i>
+                        {{ vacancy.get_job_type_display }}
+                    </span>
+                    
+                    <span class="inline-flex items-center text-gray-600">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        {{ vacancy.location }}
+                    </span>
+                </div>
+                
+                <!-- Deadline -->
+                <div class="mt-4 md:mt-0">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
+                        {% if vacancy.deadline < today %}bg-red-100 text-red-800
+                        {% elif vacancy.deadline|timeuntil|slice:":2"|add:"0" <= 7 %}bg-yellow-100 text-yellow-800
+                        {% else %}bg-green-100 text-green-800{% endif %}">
+                        <i class="far fa-clock mr-2"></i>
+                        {% if vacancy.deadline < today %}
+                        Closed: {{ vacancy.deadline|date:"M d, Y" }}
+                        {% else %}
+                        Apply by: {{ vacancy.deadline|date:"M d, Y" }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Job Title -->
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{{ vacancy.title }}</h1>
+            
+            <!-- Posted Date -->
+            <p class="text-gray-600 mb-8">
+                <i class="far fa-calendar mr-2"></i>
+                Posted on {{ vacancy.created_date|date:"F j, Y" }}
+            </p>
+            
+            <!-- Application Status -->
+            {% if vacancy.deadline < today %}
+            <div class="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle text-red-500 text-xl mr-3"></i>
+                    <div>
+                        <h3 class="font-bold text-red-800">Application Closed</h3>
+                        <p class="text-red-600 text-sm">The application deadline for this position has passed.</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Job Details -->
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <!-- Main Content -->
+        <div class="md:col-span-2">
+            <!-- Job Description -->
+            <div class="bg-white rounded-xl shadow-md p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Position Overview</h2>
+                <div class="prose prose-blue max-w-none">
+                    {{ vacancy.description|safe }}
+                </div>
+            </div>
+            
+            <!-- Requirements -->
+            <div class="bg-white rounded-xl shadow-md p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Requirements</h2>
+                <div class="prose prose-blue max-w-none">
+                    {{ vacancy.requirements|safe }}
+                </div>
+            </div>
+            
+            <!-- Responsibilities -->
+            <div class="bg-white rounded-xl shadow-md p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Key Responsibilities</h2>
+                <div class="prose prose-blue max-w-none">
+                    {{ vacancy.responsibilities|safe }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="space-y-6">
+            <!-- Application Box -->
+            <div id="apply" class="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4">Apply for this Position</h3>
+                
+                {% if vacancy.deadline < today %}
+                <div class="mb-4 p-3 bg-blue-500/30 rounded-lg">
+                    <p class="text-sm">This position is no longer accepting applications.</p>
+                </div>
+                {% else %}
+                <p class="text-blue-100 mb-6">Submit your application before the deadline.</p>
+                
+                <a href="{% url 'apply_vacancy' vacancy.slug %}" 
+                   class="block w-full bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-4 rounded-lg text-center transition duration-300 mb-4">
+                    <i class="fas fa-paper-plane mr-2"></i> Apply Now
+                </a>
+                {% endif %}
+                
+                <div class="text-sm text-blue-200">
+                    <p class="mb-2"><i class="far fa-clock mr-2"></i> Deadline: {{ vacancy.deadline|date:"F j, Y" }}</p>
+                    <p><i class="fas fa-briefcase mr-2"></i> Type: {{ vacancy.get_job_type_display }}</p>
+                </div>
+            </div>
+            
+            <!-- Share This Job -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h4 class="font-bold text-gray-800 mb-4">Share This Job</h4>
+                <div class="flex space-x-3">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                       target="_blank" 
+                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-center">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ vacancy.title }}" 
+                       target="_blank" 
+                       class="flex-1 bg-blue-400 hover:bg-blue-500 text-white py-2 px-3 rounded-lg text-center">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ vacancy.title }}" 
+                       target="_blank" 
+                       class="flex-1 bg-blue-700 hover:bg-blue-800 text-white py-2 px-3 rounded-lg text-center">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Contact HR -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h4 class="font-bold text-gray-800 mb-4">Questions?</h4>
+                <p class="text-gray-600 text-sm mb-4">Contact our HR department for more information about this position.</p>
+                <a href="mailto:hr@eipethiopia.org?subject=Question about: {{ vacancy.title }}" 
+                   class="block w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg text-center text-sm font-medium transition duration-300">
+                    <i class="fas fa-envelope mr-2"></i> Email HR
+                </a>
+            </div>
+            
+            <!-- Back to Listings -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <a href="{% url 'vacancies_list' %}" 
+                   class="block w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 py-3 px-4 rounded-lg text-center font-medium transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i> View All Positions
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Apply -->
+    <div class="bg-gray-50 rounded-2xl p-8 mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">How to Apply</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl">
+                <div class="text-blue-600 text-3xl mb-3">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-2">Prepare Documents</h4>
+                <p class="text-gray-600 text-sm">Update your CV and prepare a cover letter explaining your interest in the position.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl">
+                <div class="text-blue-600 text-3xl mb-3">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-2">Online Application</h4>
+                <p class="text-gray-600 text-sm">Complete the online application form and upload your documents.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl">
+                <div class="text-blue-600 text-3xl mb-3">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-2">Confirmation</h4>
+                <p class="text-gray-600 text-sm">You'll receive a confirmation email once your application is submitted.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Equal Opportunity Statement -->
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6">
+        <h3 class="font-bold text-gray-800 mb-3">Equal Opportunity Employer</h3>
+        <p class="text-gray-600 text-sm">
+            EIP Ethiopia is an equal opportunity employer. We celebrate diversity and are committed to creating an inclusive environment for all employees. We do not discriminate on the basis of race, color, religion, sex, national origin, age, disability, or any other characteristic protected by law.
+        </p>
+    </div>
+</div>
+{% endblock %}

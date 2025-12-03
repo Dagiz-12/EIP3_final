@@ -1,0 +1,69 @@
+<!-- Partners & Donors -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        Our Partners & Donors
+      </h2>
+      <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+      <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+        We collaborate with organizations and individuals who share our vision
+        for sustainable development in Ethiopia.
+      </p>
+    </div>
+
+    {% if partners %}
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+      {% for partner in partners %}
+      <div
+        class="flex items-center justify-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 animate-on-scroll"
+      >
+        {% if partner.logo %}
+        <img
+          src="{{ partner.logo.url }}"
+          alt="{{ partner.name }}"
+          class="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+        />
+        {% else %}
+        <div class="text-center">
+          <div class="text-3xl text-gray-400 mb-2">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <span class="text-sm font-medium text-gray-600"
+            >{{ partner.name }}</span
+          >
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-12">
+      <p class="text-gray-600 mb-4">Interested in partnering with us?</p>
+      <a
+        href="{% url 'contact' %}"
+        class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+      >
+        <i class="fas fa-handshake mr-2"></i>
+        Become a Partner
+      </a>
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+      <i class="fas fa-handshake text-5xl text-gray-300 mb-4"></i>
+      <h3 class="text-xl font-semibold text-gray-600 mb-2">
+        Our Partnership Network
+      </h3>
+      <p class="text-gray-500 mb-6">
+        We work with various local and international organizations.
+      </p>
+      <a
+        href="{% url 'contact' %}"
+        class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+      >
+        Partner With Us
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>

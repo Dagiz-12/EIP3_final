@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}{{ site_title }} - Empowering Communities{% endblock %}
+    </title>
+
+    <!-- Meta tags for SEO -->
+    <meta
+      name="description"
+      content="{% block meta_description %}{{ site_description }}{% endblock %}"
+    />
+    <meta
+      name="keywords"
+      content="{% block meta_keywords %}{{ site_keywords }}{% endblock %}"
+    />
+    <meta name="author" content="{{ site_author }}" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://eipethiopia.org{{ request.path }}"
+    />
+    <meta property="og:title" content="{{ site_title }}" />
+    <meta property="og:description" content="{{ site_description }}" />
+    <meta property="og:image" content="{% static site_image %}" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://eipethiopia.org{{ request.path }}"
+    />
+    <meta property="twitter:title" content="{{ site_title }}" />
+    <meta property="twitter:description" content="{{ site_description }}" />
+    <meta property="twitter:image" content="{% static site_image %}" />
+    <!-- FIX THIS LINE -->
+    <meta
+      property="twitter:description"
+      content="{% block og_description %}Empowering Ethiopian communities through sustainable development initiatives{% endblock %}"
+    />
+    <meta
+      property="twitter:image"
+      content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/favicon.ico' %}"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="{% static 'images/apple-touch-icon.png' %}"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col font-sans">
+    <!-- Navigation -->
+    <nav
+      class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300"
+    >
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+          {% include 'partials/navbar.html' %}
+        </div>
+      </div>
+
+      {% include 'partials/mobile_menu.html' %}
+    </nav>
+
+    <!-- Messages -->
+    {% include 'partials/messages.html' %}
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+      <!-- Page Header -->
+      {% block page_header %}
+      <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
+        <div class="container mx-auto px-4">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            {% block page_title %}{% endblock %}
+          </h1>
+          <p class="text-xl text-blue-100 max-w-3xl">
+            {% block page_subtitle %}{% endblock %}
+          </p>
+        </div>
+      </div>
+      {% endblock %}
+
+      <!-- Breadcrumbs -->
+      {% block breadcrumbs %}
+      <div class="bg-gray-100 border-b">
+        <div class="container mx-auto px-4 py-2">
+          <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+              <li class="inline-flex items-center">
+                <a
+                  href="{% url 'home' %}"
+                  class="inline-flex items-center text-sm text-gray-700 hover:text-blue-600"
+                >
+                  <i class="fas fa-home mr-2"></i>
+                  Home
+                </a>
+              </li>
+              {% block breadcrumb_items %}{% endblock %}
+            </ol>
+          </nav>
+        </div>
+      </div>
+      {% endblock %}
+
+      <!-- Main Content Block -->
+      <div class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+
+    <!-- Base JavaScript -->
+    <script src="{% static 'js/base.js' %}"></script>
+
+    <!-- Page-specific JavaScript -->
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

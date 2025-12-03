@@ -1,0 +1,83 @@
+<!-- Quick About Section -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="animate-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+          Welcome to <span class="text-blue-600">EIP Ethiopia</span>
+        </h2>
+        <p class="text-gray-600 mb-6 text-lg">
+          Ethiopian Initiatives for Progress (EIP) is a non-profit organization
+          dedicated to empowering communities through sustainable development
+          initiatives. Since our establishment in 2005, we have been working
+          towards creating lasting positive change across Ethiopia.
+        </p>
+        <p class="text-gray-600 mb-8">
+          Our mission is to foster sustainable development through education,
+          healthcare, economic empowerment, and environmental conservation
+          programs that directly benefit local communities.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="{% url 'about_who_we_are' %}"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center justify-center"
+          >
+            Learn More About Us
+            <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+          <a
+            href="{% url 'what_we_do' %}"
+            class="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center justify-center"
+          >
+            <i class="fas fa-project-diagram mr-2"></i>
+            Our Projects
+          </a>
+        </div>
+      </div>
+      <div class="animate-on-scroll animate-delay-200">
+        <div class="relative">
+          <div class="bg-blue-100 rounded-2xl p-6 shadow-lg">
+            <div class="grid grid-cols-2 gap-6">
+              <div class="bg-white p-6 rounded-xl text-center hover-lift">
+                <div class="text-blue-600 text-4xl mb-3">
+                  <i class="fas fa-handshake"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Community Focused</h3>
+                <p class="text-gray-600 text-sm">
+                  Working directly with local communities
+                </p>
+              </div>
+              <div class="bg-white p-6 rounded-xl text-center hover-lift">
+                <div class="text-blue-600 text-4xl mb-3">
+                  <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Sustainable Solutions</h3>
+                <p class="text-gray-600 text-sm">
+                  Long-term, environmentally conscious programs
+                </p>
+              </div>
+              <div class="bg-white p-6 rounded-xl text-center hover-lift">
+                <div class="text-blue-600 text-4xl mb-3">
+                  <i class="fas fa-users"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Collaborative Approach</h3>
+                <p class="text-gray-600 text-sm">
+                  Partnering with local and international organizations
+                </p>
+              </div>
+              <div class="bg-white p-6 rounded-xl text-center hover-lift">
+                <div class="text-blue-600 text-4xl mb-3">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Measurable Impact</h3>
+                <p class="text-gray-600 text-sm">
+                  Tracking and evaluating all program outcomes
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

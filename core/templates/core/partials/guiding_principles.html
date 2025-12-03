@@ -1,0 +1,52 @@
+<!-- Guiding Principles -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        Our Guiding Principles
+      </h2>
+      <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+      <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+        These core values drive every decision we make and every action we take
+        in pursuit of our mission.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {% for principle in guiding_principles %}
+      <div
+        class="principle-card bg-white p-8 rounded-lg shadow-md hover-lift animate-on-scroll"
+      >
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="{{ principle.icon }}"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">{{ principle.title }}</h3>
+        <p class="text-gray-600">
+          {{ principle.description|safe|truncatewords:30 }}
+        </p>
+        <a
+          href="{% url 'about_guiding_principles' %}"
+          class="inline-block mt-4 text-blue-600 hover:text-blue-800 font-medium"
+        >
+          Learn more <i class="ml-1 fas fa-arrow-right"></i>
+        </a>
+      </div>
+      {% empty %}
+      <div class="col-span-3 text-center py-8">
+        <i class="fas fa-info-circle text-4xl text-gray-400 mb-4"></i>
+        <p class="text-gray-600">Guiding principles will be added soon.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-12">
+      <a
+        href="{% url 'about_guiding_principles' %}"
+        class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold text-lg"
+      >
+        View All Principles
+        <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </div>
+</section>

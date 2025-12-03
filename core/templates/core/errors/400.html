@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Bad Request - EIP
+Ethiopia{% endblock %} {% block meta_description %}The server cannot process the
+request due to a client error.{% endblock %} {% block page_header %}
+<div class="bg-gradient-to-r from-purple-600 to-purple-800 text-white py-16">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-5xl md:text-6xl font-bold mb-4">400</h1>
+    <p class="text-2xl text-purple-100">Bad Request</p>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<div class="max-w-4xl mx-auto text-center py-12">
+  <div class="mb-8">
+    <i class="fas fa-exclamation-circle text-6xl text-purple-500 mb-6"></i>
+    <h2 class="text-3xl font-bold text-gray-800 mb-4">Bad Request</h2>
+    <p class="text-gray-600 text-lg mb-6">
+      The server cannot process the request due to a client error. This could be
+      due to:
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+      <div class="bg-white p-4 rounded-lg shadow-sm text-left">
+        <i class="fas fa-link text-2xl text-purple-600 mb-3"></i>
+        <h4 class="font-semibold mb-2">Invalid URL</h4>
+        <p class="text-sm text-gray-600">
+          The URL might be malformed or contain invalid characters.
+        </p>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg shadow-sm text-left">
+        <i class="fas fa-cookie text-2xl text-purple-600 mb-3"></i>
+        <h4 class="font-semibold mb-2">Cookie Issues</h4>
+        <p class="text-sm text-gray-600">
+          Clear your browser cookies and cache, then try again.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <div>
+      <a
+        href="{% url 'home' %}"
+        class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition"
+      >
+        <i class="fas fa-home mr-2"></i> Go to Homepage
+      </a>
+    </div>
+
+    <div class="text-sm text-gray-600">
+      <p>If the problem persists, try:</p>
+      <ul class="mt-2 space-y-1">
+        <li>• Clearing your browser cache and cookies</li>
+        <li>• Disabling browser extensions temporarily</li>
+        <li>• Using a different browser</li>
+        <li>• Contacting support if the issue continues</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Page Not Found -
+EIP Ethiopia{% endblock %} {% block meta_description %}The page you are looking
+for might have been removed or is temporarily unavailable.{% endblock %} {%
+block page_header %}
+<div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-5xl md:text-6xl font-bold mb-4">404</h1>
+    <p class="text-2xl text-blue-100">Page Not Found</p>
+  </div>
+</div>
+{% endblock %} {% block breadcrumbs %}
+<!-- No breadcrumbs on error pages -->
+{% endblock %} {% block content %}
+<div class="max-w-4xl mx-auto text-center py-12">
+  <div class="mb-8">
+    <i class="fas fa-exclamation-triangle text-6xl text-yellow-500 mb-6"></i>
+    <h2 class="text-3xl font-bold text-gray-800 mb-4">Oops! Page Not Found</h2>
+    <p class="text-gray-600 text-lg mb-6">
+      The page you are looking for might have been removed, had its name
+      changed, or is temporarily unavailable.
+    </p>
+  </div>
+
+  <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 mb-8">
+    <h3 class="text-xl font-semibold mb-4">What you can do:</h3>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="p-4 bg-white rounded-lg shadow-sm">
+        <i class="fas fa-home text-3xl text-blue-600 mb-3"></i>
+        <h4 class="font-semibold mb-2">Go to Homepage</h4>
+        <p class="text-sm text-gray-600 mb-3">Return to our main page</p>
+        <a
+          href="{% url 'home' %}"
+          class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+        >
+          Homepage
+        </a>
+      </div>
+
+      <div class="p-4 bg-white rounded-lg shadow-sm">
+        <i class="fas fa-search text-3xl text-blue-600 mb-3"></i>
+        <h4 class="font-semibold mb-2">Use Search</h4>
+        <p class="text-sm text-gray-600 mb-3">Find what you're looking for</p>
+        <a
+          href="{% url 'blog_list' %}"
+          class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+        >
+          Search
+        </a>
+      </div>
+
+      <div class="p-4 bg-white rounded-lg shadow-sm">
+        <i class="fas fa-envelope text-3xl text-blue-600 mb-3"></i>
+        <h4 class="font-semibold mb-2">Contact Us</h4>
+        <p class="text-sm text-gray-600 mb-3">Get help from our team</p>
+        <a
+          href="{% url 'contact' %}"
+          class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+        >
+          Contact
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-left">
+    <h3 class="text-xl font-semibold mb-4">Popular Pages:</h3>
+    <ul class="grid md:grid-cols-2 gap-2">
+      <li>
+        <a
+          href="{% url 'about_who_we_are' %}"
+          class="text-blue-600 hover:text-blue-800 hover:underline"
+          >About Us</a
+        >
+      </li>
+      <li>
+        <a
+          href="{% url 'what_we_do' %}"
+          class="text-blue-600 hover:text-blue-800 hover:underline"
+          >What We Do</a
+        >
+      </li>
+      <li>
+        <a
+          href="{% url 'publications_list' %}"
+          class="text-blue-600 hover:text-blue-800 hover:underline"
+          >Publications</a
+        >
+      </li>
+      <li>
+        <a
+          href="{% url 'blog_list' %}"
+          class="text-blue-600 hover:text-blue-800 hover:underline"
+          >Blog & News</a
+        >
+      </li>
+      <li>
+        <a
+          href="{% url 'vacancies_list' %}"
+          class="text-blue-600 hover:text-blue-800 hover:underline"
+          >Vacancies</a
+        >
+      </li>
+      <li>
+        <a
+          href="{% url 'contact' %}"
+          class="text-blue-600 hover:text-blue-800 hover:underline"
+          >Contact Us</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

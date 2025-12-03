@@ -1,0 +1,60 @@
+[
+  {
+    "model": "core.guidingprinciple",
+    "pk": 1,
+    "fields": {
+      "title": "Integrity",
+      "icon": "fas fa-shield-alt",
+      "description": "We maintain the highest standards of integrity in all our actions.",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.guidingprinciple",
+    "pk": 2,
+    "fields": {
+      "title": "Transparency",
+      "icon": "fas fa-eye",
+      "description": "We are open and transparent in our communications and operations.",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.guidingprinciple",
+    "pk": 3,
+    "fields": {
+      "title": "Accountability",
+      "icon": "fas fa-balance-scale",
+      "description": "We take responsibility for our actions and their outcomes.",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.sliderimage",
+    "pk": 1,
+    "fields": {
+      "title": "Empowering Communities",
+      "image": "slider/community.jpg",
+      "description": "Working together for sustainable development",
+      "is_active": true,
+      "order": 1,
+      "link": "/what-we-do/"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 1,
+    "fields": {
+      "name": "News",
+      "slug": "news"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Blog",
+      "slug": "blog"
+    }
+  }
+]
