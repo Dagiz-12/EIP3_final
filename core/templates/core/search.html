@@ -1,0 +1,186 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Search Results -
+EIP Ethiopia{% endblock %} {% block meta_description %}Search results for "{{
+query }}" on EIP Ethiopia website.{% endblock %} {% block page_title %}Search
+Results{% endblock %} {% block page_subtitle %}{% if query %}Results for "{{
+query }}"{% else %}Search our website{% endif %}{% endblock %} {% block
+breadcrumb_items %}
+<li>
+  <div class="flex items-center">
+    <i class="fas fa-chevron-right text-gray-400"></i>
+    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Search</span>
+  </div>
+</li>
+{% endblock %} {% block content %}
+<div class="max-w-4xl mx-auto">
+  <!-- Search Box -->
+  <div class="mb-8">
+    <form method="GET" action="{% url 'search' %}" class="relative">
+      <input
+        type="text"
+        name="q"
+        value="{{ query }}"
+        placeholder="Search our website..."
+        class="w-full px-6 py-4 pl-14 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+      />
+      <i class="fas fa-search absolute left-5 top-5 text-gray-400 text-xl"></i>
+      <button
+        type="submit"
+        class="absolute right-3 top-3 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+
+  <!-- Results Summary -->
+  <div class="mb-6">
+    <p class="text-gray-600">
+      Found
+      <span class="font-bold text-blue-600">{{ results_count }}</span> result{{
+      results_count|pluralize }} for "{{ query }}"
+    </p>
+  </div>
+
+  <!-- Results -->
+  {% if results %}
+  <div class="space-y-6">
+    {% for result in results %}
+    <div class="bg-white rounded-xl shadow-md p-6 hover-lift">
+      <div class="flex items-start justify-between">
+        <div class="flex-grow">
+          <!-- Result Type Badge -->
+          <div class="mb-2">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {% if result.type == 'post' %}bg-blue-100 text-blue-800 {% elif result.type == 'publication' %}bg-green-100 text-green-800 {% else %}bg-yellow-100 text-yellow-800{% endif %}"
+            >
+              <i
+                class="fas {% if result.type == 'post' %}fa-newspaper {% elif result.type == 'publication' %}fa-file-pdf {% else %}fa-briefcase{% endif %} mr-2"
+              ></i>
+              {{ result.category }}
+            </span>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            <a href="{{ result.url }}" class="hover:text-blue-600">
+              {{ result.title }}
+            </a>
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-600 mb-3">
+            {{ result.description|striptags|truncatechars:200 }}
+          </p>
+
+          <!-- Date -->
+          <p class="text-sm text-gray-500">
+            <i class="far fa-calendar mr-1"></i>
+            {{ result.date|date:"F j, Y" }}
+          </p>
+        </div>
+
+        <!-- Link Icon -->
+        <div class="flex-shrink-0 ml-4">
+          <a href="{{ result.url }}" class="text-blue-600 hover:text-blue-800">
+            <i class="fas fa-arrow-right text-xl"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% include 'partials/pagination.html' %} {% elif query %}
+  <!-- No Results -->
+  <div class="text-center py-12 bg-gray-50 rounded-xl">
+    <i class="fas fa-search text-5xl text-gray-400 mb-4"></i>
+    <h3 class="text-xl font-semibold text-gray-600 mb-2">No results found</h3>
+    <p class="text-gray-500 mb-6">
+      We couldn't find any results for "{{ query }}".
+    </p>
+
+    <div class="space-y-4">
+      <p class="text-gray-600">Suggestions:</p>
+      <ul class="text-gray-500 space-y-2">
+        <li class="flex items-center justify-center">
+          <i class="fas fa-check text-green-500 mr-2"></i>
+          Check your spelling
+        </li>
+        <li class="flex items-center justify-center">
+          <i class="fas fa-check text-green-500 mr-2"></i>
+          Try different keywords
+        </li>
+        <li class="flex items-center justify-center">
+          <i class="fas fa-check text-green-500 mr-2"></i>
+          Browse our categories
+        </li>
+      </ul>
+
+      <div class="mt-6">
+        <a
+          href="{% url 'blog_list' %}"
+          class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 mr-4"
+        >
+          <i class="fas fa-newspaper mr-2"></i> Browse Blog
+        </a>
+        <a
+          href="{% url 'publications_list' %}"
+          class="inline-flex items-center border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition duration-300"
+        >
+          <i class="fas fa-file-pdf mr-2"></i> Browse Publications
+        </a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <!-- Empty Search -->
+  <div class="text-center py-12">
+    <i class="fas fa-search text-5xl text-gray-300 mb-4"></i>
+    <h3 class="text-xl font-semibold text-gray-600 mb-2">
+      Enter a search term
+    </h3>
+    <p class="text-gray-500">
+      Type in the search box above to find content on our website.
+    </p>
+  </div>
+  {% endif %}
+
+  <!-- Popular Searches -->
+  <div class="mt-12 pt-12 border-t">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Popular Searches</h3>
+    <div class="flex flex-wrap gap-2">
+      <a
+        href="{% url 'search' %}?q=sustainable+development"
+        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+      >
+        Sustainable Development
+      </a>
+      <a
+        href="{% url 'search' %}?q=community+projects"
+        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+      >
+        Community Projects
+      </a>
+      <a
+        href="{% url 'search' %}?q=education"
+        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+      >
+        Education
+      </a>
+      <a
+        href="{% url 'search' %}?q=healthcare"
+        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+      >
+        Healthcare
+      </a>
+      <a
+        href="{% url 'search' %}?q=volunteer"
+        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+      >
+        Volunteer
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

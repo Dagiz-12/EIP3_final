@@ -1,15 +1,15 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, CreateView
-from django.urls import reverse_lazy
-from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from core.utils.email import send_contact_notification, send_contact_auto_reply
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django.contrib import messages
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from .models import ContactMessage
+from .forms import ContactForm
 import json
-from .models import ContactMessage, Subscriber
-from .forms import ContactForm, SubscriptionForm
 
 
 class ContactView(CreateView):
@@ -37,63 +37,24 @@ class ContactView(CreateView):
         contact_message.ip_address = ip_address
         contact_message.save()
 
-        # Send email notification
-        self.send_notification_email(contact_message)
+        # Send email notifications
+        try:
+            # Send notification to admin
+            send_contact_notification(contact_message)
+
+            # Send auto-reply to user
+            send_contact_auto_reply(contact_message)
+
+        except Exception as e:
+            # Log error but don't crash the form submission
+            print(f"Email sending failed: {e}")
 
         messages.success(
             self.request,
-            'Thank you for your message! We will get back to you soon.'
+            'Thank you for your message! We have sent a confirmation email to your address and will get back to you soon.'
         )
 
         return super().form_valid(form)
-
-    def send_notification_email(self, contact_message):
-        """Send email notification about new contact message"""
-        subject = f'New Contact Message: {contact_message.subject}'
-        message = f'''
-        New contact form submission:
-        
-        Name: {contact_message.name}
-        Email: {contact_message.email}
-        Subject: {contact_message.subject}
-        Message: {contact_message.message}
-        
-        IP Address: {contact_message.ip_address}
-        Received: {contact_message.created_date}
-        
-        You can view and manage this message in the admin panel.
-        '''
-
-        send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.ADMIN_EMAIL],  # Add your admin email in settings
-            fail_silently=True,
-        )
-
-        # Optional: Send auto-reply to user
-        auto_reply_subject = 'Thank you for contacting EIP Ethiopia'
-        auto_reply_message = f'''
-        Dear {contact_message.name},
-        
-        Thank you for reaching out to EIP Ethiopia. We have received your message and will get back to you within 2-3 business days.
-        
-        Here's a copy of your message:
-        Subject: {contact_message.subject}
-        Message: {contact_message.message}
-        
-        Best regards,
-        EIP Ethiopia Team
-        '''
-
-        send_mail(
-            auto_reply_subject,
-            auto_reply_message,
-            settings.DEFAULT_FROM_EMAIL,
-            [contact_message.email],
-            fail_silently=True,
-        )
 
 
 @csrf_exempt
@@ -125,10 +86,16 @@ def api_contact(request):
             contact_message.ip_address = request.META.get('REMOTE_ADDR')
         contact_message.save()
 
-        # TODO: Send email notification
+        # Send email notifications
+        try:
+            send_contact_notification(contact_message)
+            send_contact_auto_reply(contact_message)
+        except Exception as e:
+            # Log but don't fail the API response
+            print(f"Email sending failed: {e}")
 
         return JsonResponse({
-            'message': 'Thank you for your message! We will get back to you soon.',
+            'message': 'Thank you for your message! We have sent a confirmation email and will get back to you soon.',
             'status': 'success'
         })
 

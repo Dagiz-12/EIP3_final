@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background: #2c5282;
+        color: white;
+        padding: 20px;
+        border-radius: 5px 5px 0 0;
+        text-align: center;
+      }
+      .content {
+        background: #f7fafc;
+        padding: 30px;
+        border: 1px solid #e2e8f0;
+      }
+      .footer {
+        background: #edf2f7;
+        padding: 15px;
+        text-align: center;
+        font-size: 12px;
+        color: #718096;
+      }
+      .message-box {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+      .contact-info {
+        background: #ebf8ff;
+        border: 1px solid #bee3f8;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>EIP Ethiopia</h1>
+        <p>Thank You for Contacting Us</p>
+      </div>
+
+      <div class="content">
+        <p>Dear {{ name }},</p>
+
+        <p>
+          Thank you for reaching out to EIP Ethiopia. We have received your
+          message and appreciate you taking the time to contact us.
+        </p>
+
+        <div class="message-box">
+          <p><strong>Subject:</strong> {{ subject }}</p>
+          <p><strong>Your Message:</strong></p>
+          <p
+            style="
+              white-space: pre-wrap;
+              background: #f8f9fa;
+              padding: 10px;
+              border-radius: 3px;
+            "
+          >
+            {{ message }}
+          </p>
+        </div>
+
+        <p>
+          Our team will review your inquiry and get back to you within
+          <strong>2-3 business days</strong>.
+        </p>
+
+        <div class="contact-info">
+          <h3>Our Contact Information</h3>
+          <p><strong>Email:</strong> info@eipethiopia.org</p>
+          <p><strong>Phone:</strong> +251 11 123 4567</p>
+          <p><strong>Office Hours:</strong> Mon-Fri 8:30 AM - 5:30 PM</p>
+        </div>
+
+        <p>In the meantime, you might find these resources helpful:</p>
+        <ul>
+          <li>
+            <a href="https://eipethiopia.org/publications/"
+              >Publications & Reports</a
+            >
+          </li>
+          <li>
+            <a href="https://eipethiopia.org/blog/">Latest News & Blog</a>
+          </li>
+          <li><a href="https://eipethiopia.org/about/">About Our Work</a></li>
+        </ul>
+
+        <p>
+          Best regards,<br />
+          <strong>The EIP Ethiopia Team</strong>
+        </p>
+      </div>
+
+      <div class="footer">
+        <p>This is an automated response. Please do not reply to this email.</p>
+        <p>© {% now "Y" %} EIP Ethiopia. All rights reserved.</p>
+        <p><a href="https://eipethiopia.org">https://eipethiopia.org</a></p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,3 +1,4 @@
+from core.utils.email import send_application_notification, send_application_confirmation
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
@@ -68,6 +69,7 @@ class ApplicationCreateView(CreateView):
         vacancy = get_object_or_404(Vacancy, slug=self.kwargs['slug'])
 
         # Check if deadline hasn't passed
+        from django.utils import timezone
         if vacancy.deadline < timezone.now().date():
             messages.error(self.request, 'Application deadline has passed.')
             return self.form_invalid(form)
@@ -85,35 +87,21 @@ class ApplicationCreateView(CreateView):
 
         application.save()
 
-        # Send email notification (optional)
-        self.send_notification_email(application)
+        # Send email notifications
+        try:
+            # Send notification to admin
+            send_application_notification(application)
+
+            # Send confirmation to applicant
+            send_application_confirmation(application)
+
+        except Exception as e:
+            # Log error but don't crash the form submission
+            print(f"Email sending failed: {e}")
 
         messages.success(
             self.request,
-            f'Thank you for applying for {vacancy.title}! We will review your application.'
+            f'Thank you for applying for {vacancy.title}! We have sent a confirmation email and will review your application.'
         )
 
         return super().form_valid(form)
-
-    def send_notification_email(self, application):
-        """Send email notification to admin"""
-        subject = f'New Application: {application.vacancy.title}'
-        message = f'''
-        New job application received:
-        
-        Position: {application.vacancy.title}
-        Applicant: {application.full_name}
-        Email: {application.email}
-        Phone: {application.phone}
-        Applied: {application.applied_date}
-        
-        You can view the application in the admin panel.
-        '''
-
-        send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.ADMIN_EMAIL],  # Add your admin email in settings
-            fail_silently=True,
-        )

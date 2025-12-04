@@ -1,3 +1,5 @@
+
+
 from django.shortcuts import render, get_object_or_404
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
@@ -187,3 +189,88 @@ def handler400(request, exception):
         'error_message': 'The server cannot process the request due to a client error.'
     }
     return render(request, 'core/errors/400.html', context, status=400)
+
+
+# search view
+
+
+class SearchView(ListView):
+    template_name = 'core/search.html'
+    context_object_name = 'results'
+    paginate_by = 10
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '').strip()
+
+        if not query:
+            return []
+
+        # Search across multiple models
+        results = []
+
+        # Search blog posts
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(excerpt__icontains=query) |
+            Q(categories__name__icontains=query) |
+            Q(tags__name__icontains=query),
+            is_published=True
+        ).distinct()
+
+        for post in posts:
+            results.append({
+                'type': 'post',
+                'title': post.title,
+                'description': post.excerpt,
+                'url': post.get_absolute_url(),
+                'date': post.published_date,
+                'category': 'Blog' if post.post_type == 'blog' else 'News'
+            })
+
+        # Search publications
+        publications = Publication.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(category__name__icontains=query)
+        )
+
+        for pub in publications:
+            results.append({
+                'type': 'publication',
+                'title': pub.title,
+                'description': pub.description[:200],
+                'url': pub.get_absolute_url(),
+                'date': pub.published_date,
+                'category': pub.category.name
+            })
+
+        # Search vacancies
+        vacancies = Vacancy.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(requirements__icontains=query) |
+            Q(responsibilities__icontains=query),
+            is_published=True
+        )
+
+        for vacancy in vacancies:
+            results.append({
+                'type': 'vacancy',
+                'title': vacancy.title,
+                'description': vacancy.description[:200],
+                'url': vacancy.get_absolute_url(),
+                'date': vacancy.created_date,
+                'category': 'Vacancy'
+            })
+
+        # Sort by date (newest first)
+        results.sort(key=lambda x: x['date'], reverse=True)
+
+        return results
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q', '')
+        context['results_count'] = len(self.get_queryset())
+        return context

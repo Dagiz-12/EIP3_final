@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background: #2c5282;
+        color: white;
+        padding: 20px;
+        border-radius: 5px 5px 0 0;
+      }
+      .content {
+        background: #f7fafc;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+      }
+      .footer {
+        background: #edf2f7;
+        padding: 15px;
+        text-align: center;
+        font-size: 12px;
+        color: #718096;
+      }
+      .info-box {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 10px 0;
+      }
+      .label {
+        font-weight: bold;
+        color: #4a5568;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>New Contact Form Submission</h1>
+      </div>
+
+      <div class="content">
+        <p>
+          A new message has been received through the EIP Ethiopia website
+          contact form.
+        </p>
+
+        <div class="info-box">
+          <p><span class="label">Name:</span> {{ name }}</p>
+          <p><span class="label">Email:</span> {{ email }}</p>
+          <p><span class="label">Subject:</span> {{ subject }}</p>
+          <p>
+            <span class="label">Date:</span> {{ date|date:"F j, Y, g:i a" }}
+          </p>
+          <p><span class="label">IP Address:</span> {{ ip_address }}</p>
+        </div>
+
+        <div class="info-box">
+          <p><span class="label">Message:</span></p>
+          <p style="white-space: pre-wrap">{{ message }}</p>
+        </div>
+
+        <p>
+          <a
+            href="{{ admin_url }}"
+            style="
+              background: #2c5282;
+              color: white;
+              padding: 10px 20px;
+              text-decoration: none;
+              border-radius: 5px;
+              display: inline-block;
+            "
+          >
+            View in Admin Panel
+          </a>
+        </p>
+      </div>
+
+      <div class="footer">
+        <p>This email was sent automatically from the EIP Ethiopia website.</p>
+        <p>© {% now "Y" %} EIP Ethiopia. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
