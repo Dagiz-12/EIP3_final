@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from django.core.paginator import Paginator
-from django.db.models import Q, Count
 from django.views.generic import ListView, DetailView
-from django.core.cache import cache
+from django.shortcuts import get_object_or_404
+from django.db.models import Q, F, Count  # ← IMPORT Count HERE
+from django.utils import timezone
+from .models import Post, Category, Tag, PostView
+from django.utils.html import strip_tags
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from .models import Post, Category, Tag
 
 
 class PostListView(ListView):
@@ -15,12 +15,11 @@ class PostListView(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        queryset = Post.objects.filter(
-            is_published=True).select_related('author')
+        queryset = Post.objects.filter(status='published')
 
-        # Filter by post type (news or blog)
-        post_type = self.request.GET.get('type', 'blog')
-        if post_type in ['news', 'blog']:
+        # Filter by post type
+        post_type = self.request.GET.get('type', '')
+        if post_type in ['news', 'blog', 'implementation']:
             queryset = queryset.filter(post_type=post_type)
 
         # Filter by category
@@ -28,19 +27,13 @@ class PostListView(ListView):
         if category_slug:
             queryset = queryset.filter(categories__slug=category_slug)
 
-        # Filter by tag
-        tag_slug = self.request.GET.get('tag')
-        if tag_slug:
-            queryset = queryset.filter(tags__slug=tag_slug)
-
         # Search
-        search_query = self.request.GET.get('q')
+        search_query = self.request.GET.get('q', '')
         if search_query:
             queryset = queryset.filter(
                 Q(title__icontains=search_query) |
-                Q(content__icontains=search_query) |
                 Q(excerpt__icontains=search_query) |
-                Q(categories__name__icontains=search_query) |
+                Q(content__icontains=search_query) |
                 Q(tags__name__icontains=search_query)
             ).distinct()
 
@@ -48,28 +41,33 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Get filter parameters
-        post_type = self.request.GET.get('type', 'blog')
+        post_type = self.request.GET.get('type', '')
         context['post_type'] = post_type
-        context['page_title'] = 'News' if post_type == 'news' else 'Blog'
-
-        # Get categories and tags for sidebar
-        context['categories'] = Category.objects.annotate(
-            post_count=Count('post')
-        ).order_by('name')
-
-        context['recent_posts'] = Post.objects.filter(
-            is_published=True
-        ).exclude(id__in=[p.id for p in context['posts']])[:5]
-
-        # Get all tags
-        context['tags'] = Tag.objects.annotate(
-            post_count=Count('post')
-        ).order_by('-post_count')[:10]
-
-        # Get search query
         context['search_query'] = self.request.GET.get('q', '')
+
+        # Get categories with post counts - FIXED IMPORT
+        categories = Category.objects.annotate(
+            post_count=Count(
+                'post',
+                filter=Q(post__status='published') &
+                (Q(post__post_type=post_type) if post_type else Q())
+            )
+        ).filter(post_count__gt=0, is_active=True).order_by('order')
+
+        context['categories'] = categories
+
+        # Recent posts for sidebar (exclude current posts)
+        current_post_ids = [post.id for post in context['posts']]
+        context['recent_posts'] = Post.objects.filter(
+            status='published'
+        ).exclude(
+            id__in=current_post_ids
+        ).order_by('-published_date')[:5]
+
+        # Popular tags
+        context['tags'] = Tag.objects.annotate(
+            post_count=Count('post', filter=Q(post__status='published'))
+        ).filter(post_count__gt=0).order_by('-post_count')[:10]
 
         return context
 
@@ -78,32 +76,89 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
-    slug_field = 'slug'
-    slug_url_kwarg = 'slug'
 
     def get_queryset(self):
-        return Post.objects.filter(is_published=True).select_related('author')
+        # Only show published posts or drafts for staff
+        queryset = Post.objects.all()
+        if not self.request.user.is_staff:
+            queryset = queryset.filter(
+                Q(status='published') &
+                Q(published_date__lte=timezone.now())
+            )
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        post = self.object
 
-        # Increment view count
-        post.views += 1
-        post.save(update_fields=['views'])
+        # Increment views
+        if self.object.status == 'published':
+            self.object.increment_views()
 
-        # Get related posts (same category)
-        related_posts = Post.objects.filter(
-            categories__in=post.categories.all(),
-            is_published=True
-        ).exclude(id=post.id).distinct()[:3]
+            # Track view with IP
+            PostView.objects.create(
+                post=self.object,
+                ip_address=self.get_client_ip(),
+                user_agent=self.request.META.get('HTTP_USER_AGENT', ''),
+                referer=self.request.META.get('HTTP_REFERER', '')
+            )
 
-        context['related_posts'] = related_posts
-        context['page_title'] = post.title
-        context['meta_description'] = post.excerpt
-        context['meta_keywords'] = ', '.join(
-            [tag.name for tag in post.tags.all()])
+        # Related posts (same category, published status)
+        context['related_posts'] = Post.objects.filter(
+            status='published',
+            categories__in=self.object.categories.all()
+        ).exclude(
+            id=self.object.id
+        ).distinct().order_by('-published_date')[:3]
 
+        return context
+
+    def get_client_ip(self):
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = self.request.META.get('REMOTE_ADDR')
+        return ip
+        return context
+
+
+class PostsByCategoryView(ListView):
+    model = Post
+    template_name = 'blog/list.html'
+    context_object_name = 'posts'
+    paginate_by = 9
+
+    def get_queryset(self):
+        category_slug = self.kwargs['slug']
+        self.category = get_object_or_404(Category, slug=category_slug)
+        return Post.objects.filter(
+            status='published',
+            categories=self.category
+        ).order_by('-published_date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        return context
+
+
+class PostsByTagView(ListView):
+    model = Post
+    template_name = 'blog/list.html'
+    context_object_name = 'posts'
+    paginate_by = 9
+
+    def get_queryset(self):
+        tag_slug = self.kwargs['slug']
+        self.tag = get_object_or_404(Tag, slug=tag_slug)
+        return Post.objects.filter(
+            status='published',
+            tags=self.tag
+        ).order_by('-published_date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = self.tag
         return context
 
 

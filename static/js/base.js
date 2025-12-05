@@ -1,4 +1,4 @@
-// Base JavaScript for all pages
+// Base JavaScript for all pages (minimal)
 
 // Mobile menu toggle
 function initMobileMenu() {
@@ -54,10 +54,10 @@ function initLazyLoading() {
     }
 }
 
-// Form validation helper
+// Notification system (used by all pages)
 function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
-    notification.className = `fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg z-50 transform transition-all duration-300 ${
+    notification.className = `fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg z-50 transform transition-all duration-300 animate-popUp ${
         type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
     }`;
     notification.innerHTML = `
@@ -84,37 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initNavbarScroll();
     initLazyLoading();
-    
-    // Newsletter subscription
-    const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const emailInput = this.querySelector('input[type="email"]');
-            const email = emailInput.value;
-            
-            try {
-                const response = await fetch('/api/subscribe/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
-                    },
-                    body: JSON.stringify({ email: email })
-                });
-                
-                const data = await response.json();
-                if (response.ok) {
-                    showNotification(data.message || 'Successfully subscribed!', 'success');
-                    emailInput.value = '';
-                } else {
-                    showNotification(data.error || 'Subscription failed', 'error');
-                }
-            } catch (error) {
-                showNotification('Network error. Please try again.', 'error');
-            }
-        });
-    }
     
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

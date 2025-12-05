@@ -1,5 +1,6 @@
-
-
+import os
+from django.http import HttpResponse
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
@@ -19,6 +20,7 @@ from contacts.models import Subscriber
 from contacts.forms import SubscriptionForm
 
 from django.http import Http404
+from django.utils import timezone
 
 
 class HomeView(TemplateView):
@@ -36,8 +38,8 @@ class HomeView(TemplateView):
                 'slider_images': SliderImage.objects.filter(is_active=True).order_by('order'),
                 'recent_news': Post.objects.filter(
                     post_type='news',
-                    is_published=True
-                )[:6],
+                    status='published',
+                ).order_by('-published_date')[:4],
                 'guiding_principles': GuidingPrinciple.objects.all()[:6],
                 'partners': Partner.objects.filter(is_active=True),
                 'featured_publications': Publication.objects.filter(
@@ -99,14 +101,53 @@ class WhatWeDoView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # In a real implementation, you would have a Project model
-        # For now, we'll use static data or blog posts with project category
+
+        # Get implementation/project posts that are PUBLISHED
         projects = Post.objects.filter(
-            categories__name__icontains='project',
-            is_published=True
-        )[:6]
+            status='published',  # ← CHANGED: is_published=True → status='published'
+            post_type='implementation'  # Using implementation type for projects
+        ).order_by('-published_date')[:6]
+
         context['projects'] = projects
         context['page_title'] = 'What We Do'
+        context['page_subtitle'] = 'Our projects and initiatives making a difference in Ethiopia'
+
+        # Add some statistics for the page
+        context['stats'] = {
+            'projects_completed': 50,
+            'communities_reached': 100,
+            'people_impacted': 50000,
+            'partners_count': 25,
+        }
+
+        # Get program areas (you might want to create a ProgramArea model later)
+        context['program_areas'] = [
+            {
+                'title': 'Education',
+                'icon': 'fas fa-graduation-cap',
+                'description': 'Improving access to quality education',
+                'color': 'bg-blue-100 text-blue-800',
+            },
+            {
+                'title': 'Healthcare',
+                'icon': 'fas fa-heartbeat',
+                'description': 'Enhancing healthcare services and access',
+                'color': 'bg-green-100 text-green-800',
+            },
+            {
+                'title': 'Economic Empowerment',
+                'icon': 'fas fa-hand-holding-usd',
+                'description': 'Creating sustainable livelihoods',
+                'color': 'bg-yellow-100 text-yellow-800',
+            },
+            {
+                'title': 'Environment',
+                'icon': 'fas fa-leaf',
+                'description': 'Promoting environmental sustainability',
+                'color': 'bg-teal-100 text-teal-800',
+            },
+        ]
+
         return context
 
 
@@ -208,14 +249,14 @@ class SearchView(ListView):
         # Search across multiple models
         results = []
 
-        # Search blog posts
+        # Search blog posts - FIXED
         posts = Post.objects.filter(
             Q(title__icontains=query) |
             Q(content__icontains=query) |
             Q(excerpt__icontains=query) |
             Q(categories__name__icontains=query) |
             Q(tags__name__icontains=query),
-            is_published=True
+            status='published'  # ← FIXED HERE
         ).distinct()
 
         for post in posts:
@@ -225,10 +266,10 @@ class SearchView(ListView):
                 'description': post.excerpt,
                 'url': post.get_absolute_url(),
                 'date': post.published_date,
-                'category': 'Blog' if post.post_type == 'blog' else 'News'
+                'category': 'Blog' if post.post_type == 'blog' else ('News' if post.post_type == 'news' else 'Implementation')
             })
 
-        # Search publications
+        # Search publications - NO CHANGE needed (Publication model has no is_published)
         publications = Publication.objects.filter(
             Q(title__icontains=query) |
             Q(description__icontains=query) |
@@ -239,27 +280,28 @@ class SearchView(ListView):
             results.append({
                 'type': 'publication',
                 'title': pub.title,
-                'description': pub.description[:200],
-                'url': pub.get_absolute_url(),
+                'description': pub.description[:200] if pub.description else '',
+                'url': pub.get_absolute_url() if hasattr(pub, 'get_absolute_url') else f'/publications/{pub.slug}/',
                 'date': pub.published_date,
-                'category': pub.category.name
+                'category': pub.category.name if pub.category else 'Publication'
             })
 
-        # Search vacancies
+        # Search vacancies - NO CHANGE needed (Vacancy model uses is_published=True)
         vacancies = Vacancy.objects.filter(
             Q(title__icontains=query) |
             Q(description__icontains=query) |
             Q(requirements__icontains=query) |
             Q(responsibilities__icontains=query),
-            is_published=True
-        )
+            is_published=True,  # ← This is CORRECT for Vacancy model
+            deadline__gte=timezone.now().date()  # ← Add active vacancies only
+        ).distinct()
 
         for vacancy in vacancies:
             results.append({
                 'type': 'vacancy',
                 'title': vacancy.title,
-                'description': vacancy.description[:200],
-                'url': vacancy.get_absolute_url(),
+                'description': vacancy.description[:200] if vacancy.description else '',
+                'url': vacancy.get_absolute_url() if hasattr(vacancy, 'get_absolute_url') else f'/vacancies/{vacancy.slug}/',
                 'date': vacancy.created_date,
                 'category': 'Vacancy'
             })
@@ -273,4 +315,22 @@ class SearchView(ListView):
         context = super().get_context_data(**kwargs)
         context['query'] = self.request.GET.get('q', '')
         context['results_count'] = len(self.get_queryset())
+
+        # Add category counts
+        results_list = self.get_queryset()
+        post_count = len([r for r in results_list if r['type'] == 'post'])
+        pub_count = len(
+            [r for r in results_list if r['type'] == 'publication'])
+        vac_count = len([r for r in results_list if r['type'] == 'vacancy'])
+
+        context['category_counts'] = {
+            'posts': post_count,
+            'publications': pub_count,
+            'vacancies': vac_count,
+        }
+
         return context
+
+
+# debug
+# In your views.py, add:

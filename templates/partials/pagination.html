@@ -10,8 +10,8 @@
         <i class="fas fa-chevron-left"></i>
       </a>
     </li>
-    {% endif %} {% for num in page_obj.paginator.page_range %} {% if
-    page_obj.number == num %}
+    {% endif %} {% for num in page_obj.paginator.page_range %} 
+    {% if page_obj.number == num %}
     <li>
       <span class="px-4 py-2 bg-blue-600 text-white rounded-lg">{{ num }}</span>
     </li>

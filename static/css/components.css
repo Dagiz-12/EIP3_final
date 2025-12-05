@@ -1,0 +1,124 @@
+/* ====== COMPONENT CLASSES ====== */
+.animate-fadeInUp {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fadeIn {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slideInRight {
+    opacity: 0;
+    animation: slideInRight 0.6s ease-out forwards;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-scaleIn {
+    opacity: 0;
+    animation: scaleIn 0.4s ease-out forwards;
+}
+
+.animate-popUp {
+    animation: popUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Animation delays */
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+.animate-delay-700 { animation-delay: 700ms; }
+
+/* ====== NAVIGATION DROPDOWN FIXES ====== */
+.nav-dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.nav-dropdown-container:hover .nav-dropdown,
+.nav-dropdown-container:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition-delay: 0.1s;
+}
+
+/* Gap between button and dropdown to prevent accidental closing */
+.nav-dropdown-container::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    bottom: -20px;
+    left: 0;
+    background: transparent;
+}
+
+/* ====== HOVER EFFECTS ====== */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
+}
+
+.hover-glow {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+}
+
+/* ====== CARD STYLES ====== */
+.card {
+    background: var(--color-surface);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
+    transform: translateY(-5px);
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border: 1px solid #e0f2fe;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
+}
+
+.principle-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 4px solid var(--color-primary);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.principle-card:hover {
+    transform: translateX(10px) translateY(-5px);
+    box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2);
+    border-left-color: var(--color-accent);
+}

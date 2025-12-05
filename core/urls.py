@@ -13,4 +13,5 @@ urlpatterns = [
     path('what-we-do/', views.WhatWeDoView.as_view(), name='what_we_do'),
     path('search/', views.SearchView.as_view(), name='search'),
     path('api/subscribe/', views.subscribe_newsletter, name='subscribe_api'),
+
 ]

@@ -1,40 +1,28 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Home - EIP
-Ethiopia{% endblock %} {% block meta_description %} Empowering Ethiopian
-communities through sustainable development initiatives, education, and
-healthcare programs. {% endblock %} {% block extra_css %}
-<style>
-  .hero-slider {
-    height: 70vh;
-    min-height: 600px;
-  }
+{% extends 'base.html' %}
+{% load static %}
 
-  .hero-slide {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+{% block title %}Home - EIP Ethiopia{% endblock %}
 
-  .slide-overlay {
-    background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.4) 100%
-    );
-  }
+{% block meta_description %}
+Empowering Ethiopian communities through sustainable development initiatives, education, and healthcare programs.
+{% endblock %}
 
-  .principle-card {
-    transition: all 0.3s ease;
-    border-left: 4px solid #2c5282;
-  }
+{% block extra_css %}
+<!-- Home page specific CSS -->
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
-  .principle-card:hover {
-    transform: translateX(10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-</style>
-{% endblock %} {% block content %}
+{% block content %}
 <!-- Hero Slider -->
+
+
+<!-- Hero Slider with Enhanced Design -->
 <div class="hero-slider relative overflow-hidden">
+  <div class="absolute inset-0 floating-element">
+    <div class="absolute top-10 left-10 w-64 h-64 bg-sky-100 rounded-full opacity-20"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-sky-50 rounded-full opacity-30"></div>
+  </div>
+  
   <div class="swiper-container h-full">
     <div class="swiper-wrapper">
       {% for slide in slider_images %}
@@ -45,17 +33,61 @@ healthcare programs. {% endblock %} {% block extra_css %}
         >
           <div class="slide-overlay h-full flex items-center">
             <div class="container mx-auto px-4 text-white">
-              <div class="max-w-2xl animate-on-scroll">
-                <h1 class="text-5xl font-bold mb-4">{{ slide.title }}</h1>
-                <p class="text-xl mb-8">{{ slide.description }}</p>
+              <div class="max-w-2xl animate-fadeInUp">
+                <div class="inline-block mb-4">
+                  <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+                    Featured
+                  </span>
+                </div>
+                <h1 class="text-5xl font-bold mb-4 leading-tight">{{ slide.title }}</h1>
+                <p class="text-xl mb-8 opacity-90">{{ slide.description }}</p>
                 {% if slide.link %}
-                <a
-                  href="{{ slide.link }}"
-                  class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105"
-                >
-                  Learn More <i class="ml-2 fas fa-arrow-right"></i>
-                </a>
+                <div class="flex flex-wrap gap-4">
+                  <a
+                    href="{{ slide.link }}"
+                    class="inline-flex items-center bg-white text-sky-700 hover:bg-sky-50 px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                  >
+                    Learn More <i class="ml-2 fas fa-arrow-right"></i>
+                  </a>
+                  <a
+                    href="{% url 'contact' %}"
+                    class="inline-flex items-center bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-4 rounded-lg font-semibold transition-all duration-300"
+                  >
+                    Contact Us
+                  </a>
+                </div>
                 {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <!-- Default slide if no slider images -->
+      <div class="swiper-slide">
+        <div
+          class="hero-slide h-full"
+          style="background-image: url('{% static 'images/default-slide.jpg' %}')"
+        >
+          <div class="slide-overlay h-full flex items-center">
+            <div class="container mx-auto px-4 text-white">
+              <div class="max-w-2xl animate-fadeInUp">
+                <h1 class="text-5xl font-bold mb-4">Empowering Ethiopian Communities</h1>
+                <p class="text-xl mb-8">Building sustainable futures through education, healthcare, and economic development.</p>
+                <div class="flex flex-wrap gap-4">
+                  <a
+                    href="{% url 'about_who_we_are' %}"
+                    class="inline-flex items-center bg-white text-sky-700 hover:bg-sky-50 px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                  >
+                    Learn About Us <i class="ml-2 fas fa-arrow-right"></i>
+                  </a>
+                  <a
+                    href="{% url 'contact' %}"
+                    class="inline-flex items-center bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-4 rounded-lg font-semibold transition-all duration-300"
+                  >
+                    Get Involved
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -66,52 +98,111 @@ healthcare programs. {% endblock %} {% block extra_css %}
 
     <!-- Slider Controls -->
     <div
-      class="swiper-button-next text-white bg-black/20 hover:bg-black/40 rounded-full w-12 h-12"
+      class="swiper-button-next text-white bg-black/20 hover:bg-black/40 backdrop-blur-sm rounded-full w-12 h-12 transform hover:scale-110 transition-all duration-200"
     ></div>
     <div
-      class="swiper-button-prev text-white bg-black/20 hover:bg-black/40 rounded-full w-12 h-12"
+      class="swiper-button-prev text-white bg-black/20 hover:bg-black/40 backdrop-blur-sm rounded-full w-12 h-12 transform hover:scale-110 transition-all duration-200"
     ></div>
     <div class="swiper-pagination"></div>
   </div>
 </div>
 
+
+
+
 <!-- Quick Stats -->
-<section class="py-12 bg-blue-700 text-white">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      <div class="animate-on-scroll">
-        <div class="text-4xl font-bold mb-2">
-          <span class="counter" data-value="15" data-suffix="+">0</span>
+<!-- Quick Stats with Animation -->
+<section class="py-16 bg-gradient-to-br from-sky-50 to-white relative overflow-hidden">
+  <div class="absolute inset-0">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-sky-100 rounded-full -translate-y-32 translate-x-32 opacity-30"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-sky-50 rounded-full translate-y-48 -translate-x-48 opacity-40"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="text-center mb-12 animate-fadeInUp">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        Making a Difference
+      </h2>
+      <div class="w-24 h-1 bg-sky-500 mx-auto mb-6"></div>
+      <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+        Our impact in numbers across Ethiopia
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      <div class="stat-card p-6 text-center pop-up animate-delay-100">
+        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="15">0</span>+
         </div>
-        <p class="text-blue-200">Years of Service</p>
+        <p class="text-gray-600 font-medium">Years of Service</p>
+        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
       </div>
-      <div class="animate-on-scroll animate-delay-100">
-        <div class="text-4xl font-bold mb-2">
-          <span class="counter" data-value="50" data-suffix="+">0</span>
+      
+      <div class="stat-card p-6 text-center pop-up animate-delay-200">
+        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="50">0</span>+
         </div>
-        <p class="text-blue-200">Projects Completed</p>
+        <p class="text-gray-600 font-medium">Projects Completed</p>
+        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
       </div>
-      <div class="animate-on-scroll animate-delay-200">
-        <div class="text-4xl font-bold mb-2">
-          <span class="counter" data-value="100" data-suffix="K+">0</span>
+      
+      <div class="stat-card p-6 text-center pop-up animate-delay-300">
+        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="100">0</span>K+
         </div>
-        <p class="text-blue-200">People Impacted</p>
+        <p class="text-gray-600 font-medium">People Impacted</p>
+        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
       </div>
-      <div class="animate-on-scroll animate-delay-300">
-        <div class="text-4xl font-bold mb-2">
-          <span class="counter" data-value="25" data-suffix="+">0</span>
+      
+      <div class="stat-card p-6 text-center pop-up animate-delay-500">
+        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="25">0</span>+
         </div>
-        <p class="text-blue-200">Partners</p>
+        <p class="text-gray-600 font-medium">Active Partners</p>
+        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Rest of the home page content remains the same -->
-{% include 'core/partials/quick_about.html' %} {% include
-'core/partials/guiding_principles.html' %} {% include
-'core/partials/recent_news.html' %} {% include 'core/partials/partners.html' %}
-{% include 'core/partials/cta.html' %} {% endblock %} {% block extra_js %}
+<!-- Rest of sections -->
+{% include 'core/partials/quick_about.html' %}
+{% include 'core/partials/guiding_principles.html' %}
+{% include 'core/partials/recent_news.html' %}
+{% include 'core/partials/partners.html' %}
+{% include 'core/partials/cta.html' %}
+
+<!-- Newsletter Pop-up -->
+<!-- Newsletter Pop-up (Optional) -->
+<div id="newsletter-popup" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-scaleIn">
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-envelope-open-text text-3xl text-sky-600"></i>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-2">Stay Updated</h3>
+      <p class="text-gray-600">Get the latest news and updates from EIP Ethiopia</p>
+    </div>
+    
+    <form id="popup-newsletter-form" class="space-y-4">
+      <input type="email" placeholder="Your email address" 
+             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+             required>
+      <button type="submit" 
+              class="w-full bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white py-3 rounded-lg font-semibold transition-all duration-300">
+        Subscribe
+      </button>
+    </form>
+    
+    <button onclick="document.getElementById('newsletter-popup').classList.add('hidden')"
+            class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+      <i class="fas fa-times text-xl"></i>
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
 <!-- Home page specific JavaScript -->
 <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
