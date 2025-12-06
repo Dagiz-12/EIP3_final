@@ -1,36 +1,45 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Board Members - EIP
-Ethiopia{% endblock %} {% block meta_description %}Meet the dedicated board
-members who guide EIP Ethiopia's vision and strategic direction.{% endblock %}
-{% block page_title %}Board Members{% endblock %} {% block page_subtitle %}The
-leadership guiding our vision and strategic direction{% endblock %} 
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Board Members - EIP Ethiopia{% endblock %}
+
+{% block meta_description %}Meet the dedicated board members who guide EIP Ethiopia's vision and strategic direction.{% endblock %}
+
+{% block page_title %}Board Members{% endblock %}
+{% block page_subtitle %}The leadership guiding our vision and strategic direction{% endblock %}
+
 {% block breadcrumb_items %}
 <li>
   <div class="flex items-center">
-    <i class="fas fa-chevron-right text-gray-400"></i>
+    <i class="fas fa-chevron-right text-slate-400"></i>
     <a
       href="{% url 'about_board_members' %}"
-      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+      class="ml-1 text-sm font-medium text-slate-700 hover:text-sky-600 md:ml-2"
     >
       Board Members
     </a>
   </div>
 </li>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="max-w-6xl mx-auto">
   <!-- Introduction -->
   <div class="mb-12 text-center">
-    <p class="text-lg text-gray-700 max-w-3xl mx-auto">
-      Our Board of Directors brings together diverse expertise and experience to
-      provide strategic guidance and oversight for EIP Ethiopia's mission and
-      operations.
-    </p>
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 border border-sky-100">
+      <p class="text-lg text-slate-700 max-w-3xl mx-auto">
+        Our Board of Directors brings together diverse expertise and experience to
+        provide strategic guidance and oversight for EIP Ethiopia's mission and
+        operations since <span class="text-sky-600 font-bold">1991</span>.
+      </p>
+    </div>
   </div>
 
   <!-- Board Members Grid -->
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
     {% for member in members %}
     <div
-      class="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift animate-on-scroll"
+      class="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift animate-on-scroll border border-slate-100 hover:border-sky-200 transition-all duration-300"
     >
       {% if member.photo %}
       <div class="h-64 overflow-hidden">
@@ -41,35 +50,34 @@ leadership guiding our vision and strategic direction{% endblock %}
         />
       </div>
       {% else %}
-      <div class="h-64 bg-blue-100 flex items-center justify-center">
-        <i class="fas fa-user text-6xl text-blue-600"></i>
+      <div class="h-64 bg-gradient-to-br from-sky-50 to-sky-100 flex items-center justify-center">
+        <i class="fas fa-user text-6xl text-sky-400"></i>
       </div>
       {% endif %}
 
       <div class="p-6">
-        <h3 class="text-xl font-bold text-gray-800 mb-1">{{ member.name }}</h3>
-        <p class="text-blue-600 font-medium mb-4">{{ member.position }}</p>
+        <h3 class="text-xl font-bold text-slate-800 mb-1">{{ member.name }}</h3>
+        <p class="text-sky-600 font-medium mb-4">{{ member.position }}</p>
 
-        <div class="prose prose-sm max-w-none mb-4">
+        <div class="prose prose-sm max-w-none mb-4 text-slate-700">
           {{ member.bio|safe|truncatewords:30 }}
         </div>
 
-        <a
-          href="#"
-          class="text-blue-600 hover:text-blue-800 text-sm font-medium inline-flex items-center"
-          onclick="showMemberDetails('{{ member.name|escapejs }}', '{{ member.position|escapejs }}', '{{ member.bio|escapejs|safe }}'); return false;"
+        <button
+          onclick="showMemberDetails('{{ member.name|escapejs }}', '{{ member.position|escapejs }}', '{{ member.bio|escapejs|safe }}')"
+          class="text-sky-600 hover:text-sky-800 text-sm font-medium inline-flex items-center group"
         >
-          Read Full Bio <i class="fas fa-arrow-right ml-1"></i>
-        </a>
+          Read Full Bio <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+        </button>
       </div>
     </div>
     {% empty %}
-    <div class="col-span-3 text-center py-12">
-      <i class="fas fa-users text-5xl text-gray-400 mb-4"></i>
-      <h3 class="text-xl font-semibold text-gray-600 mb-2">
+    <div class="col-span-3 text-center py-12 bg-sky-50 rounded-2xl">
+      <i class="fas fa-users text-5xl text-sky-300 mb-4"></i>
+      <h3 class="text-xl font-semibold text-slate-600 mb-2">
         Board Information
       </h3>
-      <p class="text-gray-500">
+      <p class="text-slate-500">
         Board member information will be available soon.
       </p>
     </div>
@@ -77,50 +85,77 @@ leadership guiding our vision and strategic direction{% endblock %}
   </div>
 
   <!-- Board Structure -->
-  <div class="bg-gray-50 rounded-2xl p-8 mb-16">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+  <div class="bg-gradient-to-br from-sky-50 to-white rounded-2xl p-8 mb-16 border border-sky-100 shadow-lg">
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">
       Board Structure & Committees
     </h2>
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-xl">
-        <h4 class="font-bold text-lg mb-3 text-blue-600">
+      <div class="bg-white p-6 rounded-xl border border-sky-100 hover:border-sky-200 transition-all duration-300">
+        <h4 class="font-bold text-lg mb-3 text-sky-600">
           <i class="fas fa-gavel mr-2"></i> Executive Committee
         </h4>
-        <p class="text-gray-600 text-sm mb-3">
+        <p class="text-slate-600 text-sm mb-3">
           Provides overall leadership and strategic direction.
         </p>
-        <ul class="text-sm text-gray-700 space-y-1">
-          <li>• Strategic planning</li>
-          <li>• Financial oversight</li>
-          <li>• Executive decisions</li>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li class="flex items-start">
+            <i class="fas fa-check text-sky-500 mt-1 mr-2 text-xs"></i>
+            <span>Strategic planning</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-sky-500 mt-1 mr-2 text-xs"></i>
+            <span>Financial oversight</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-sky-500 mt-1 mr-2 text-xs"></i>
+            <span>Executive decisions</span>
+          </li>
         </ul>
       </div>
 
-      <div class="bg-white p-6 rounded-xl">
-        <h4 class="font-bold text-lg mb-3 text-green-600">
+      <div class="bg-white p-6 rounded-xl border border-sky-100 hover:border-sky-200 transition-all duration-300">
+        <h4 class="font-bold text-lg mb-3 text-emerald-600">
           <i class="fas fa-chart-line mr-2"></i> Program Committee
         </h4>
-        <p class="text-gray-600 text-sm mb-3">
+        <p class="text-slate-600 text-sm mb-3">
           Oversees program development and implementation.
         </p>
-        <ul class="text-sm text-gray-700 space-y-1">
-          <li>• Program evaluation</li>
-          <li>• Impact assessment</li>
-          <li>• Quality assurance</li>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li class="flex items-start">
+            <i class="fas fa-check text-emerald-500 mt-1 mr-2 text-xs"></i>
+            <span>Program evaluation</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-emerald-500 mt-1 mr-2 text-xs"></i>
+            <span>Impact assessment</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-emerald-500 mt-1 mr-2 text-xs"></i>
+            <span>Quality assurance</span>
+          </li>
         </ul>
       </div>
 
-      <div class="bg-white p-6 rounded-xl">
+      <div class="bg-white p-6 rounded-xl border border-sky-100 hover:border-sky-200 transition-all duration-300">
         <h4 class="font-bold text-lg mb-3 text-purple-600">
           <i class="fas fa-hand-holding-usd mr-2"></i> Finance Committee
         </h4>
-        <p class="text-gray-600 text-sm mb-3">
+        <p class="text-slate-600 text-sm mb-3">
           Manages financial planning and resource allocation.
         </p>
-        <ul class="text-sm text-gray-700 space-y-1">
-          <li>• Budget approval</li>
-          <li>• Financial reporting</li>
-          <li>• Audit oversight</li>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li class="flex items-start">
+            <i class="fas fa-check text-purple-500 mt-1 mr-2 text-xs"></i>
+            <span>Budget approval</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-purple-500 mt-1 mr-2 text-xs"></i>
+            <span>Financial reporting</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-purple-500 mt-1 mr-2 text-xs"></i>
+            <span>Audit oversight</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -128,47 +163,47 @@ leadership guiding our vision and strategic direction{% endblock %}
 
   <!-- Board Responsibilities -->
   <div class="mb-16">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+    <h2 class="text-2xl font-bold text-slate-800 mb-6">
       Board Responsibilities
     </h2>
-    <div class="bg-white rounded-xl shadow-md p-6">
+    <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100">
       <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <h4 class="font-bold text-lg mb-3 text-blue-600">
+          <h4 class="font-bold text-lg mb-3 text-sky-600">
             Governance & Oversight
           </h4>
           <ul class="space-y-2">
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Setting organizational strategy</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span class="text-slate-700">Setting organizational strategy</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Ensuring legal compliance</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span class="text-slate-700">Ensuring legal compliance</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Monitoring organizational performance</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span class="text-slate-700">Monitoring organizational performance</span>
             </li>
           </ul>
         </div>
 
         <div>
-          <h4 class="font-bold text-lg mb-3 text-green-600">
+          <h4 class="font-bold text-lg mb-3 text-emerald-600">
             Resource Stewardship
           </h4>
           <ul class="space-y-2">
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Financial oversight and accountability</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span class="text-slate-700">Financial oversight and accountability</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Fundraising and resource mobilization</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span class="text-slate-700">Fundraising and resource mobilization</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Risk management</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span class="text-slate-700">Risk management</span>
             </li>
           </ul>
         </div>
@@ -180,15 +215,16 @@ leadership guiding our vision and strategic direction{% endblock %}
   <div class="flex justify-between items-center">
     <a
       href="{% url 'about_strategies' %}"
-      class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+      class="text-sky-600 hover:text-sky-800 font-medium inline-flex items-center group"
     >
-      <i class="fas fa-arrow-left mr-2"></i> Strategies & Priorities
+      <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform duration-200"></i> 
+      Strategies & Priorities
     </a>
     <a
       href="{% url 'what_we_do' %}"
-      class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center"
+      class="bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
     >
-      Our Work <i class="fas fa-arrow-right ml-2"></i>
+      Our Work <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform duration-200"></i>
     </a>
   </div>
 </div>
@@ -196,27 +232,27 @@ leadership guiding our vision and strategic direction{% endblock %}
 <!-- Modal for Member Details -->
 <div
   id="memberModal"
-  class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 overflow-y-auto"
+  class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 overflow-y-auto transition-opacity duration-300"
 >
-  <div class="min-h-screen px-4 flex items-center justify-center">
-    <div class="bg-white rounded-2xl max-w-2xl w-full p-8">
+  <div class="min-h-screen px-4 flex items-center justify-center py-8">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl animate-scaleIn border border-slate-100">
       <div class="flex justify-between items-start mb-6">
         <div>
-          <h3 id="modalName" class="text-2xl font-bold text-gray-800"></h3>
-          <p id="modalPosition" class="text-blue-600 font-medium"></p>
+          <h3 id="modalName" class="text-2xl font-bold text-slate-800"></h3>
+          <p id="modalPosition" class="text-sky-600 font-medium"></p>
         </div>
         <button
           onclick="closeMemberModal()"
-          class="text-gray-400 hover:text-gray-600"
+          class="text-slate-400 hover:text-slate-600 hover:bg-slate-100 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200"
         >
-          <i class="fas fa-times text-2xl"></i>
+          <i class="fas fa-times text-xl"></i>
         </button>
       </div>
-      <div id="modalBio" class="prose max-w-none mb-6"></div>
+      <div id="modalBio" class="prose max-w-none mb-6 text-slate-700"></div>
       <div class="text-right">
         <button
           onclick="closeMemberModal()"
-          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium"
+          class="bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
         >
           Close
         </button>
@@ -231,10 +267,12 @@ leadership guiding our vision and strategic direction{% endblock %}
     document.getElementById("modalPosition").textContent = position;
     document.getElementById("modalBio").innerHTML = bio;
     document.getElementById("memberModal").classList.remove("hidden");
+    document.body.style.overflow = "hidden";
   }
 
   function closeMemberModal() {
     document.getElementById("memberModal").classList.add("hidden");
+    document.body.style.overflow = "";
   }
 
   // Close modal on ESC key

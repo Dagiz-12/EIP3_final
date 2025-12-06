@@ -7,6 +7,9 @@ mysqlclient==2.2.4       # For MySQL
 dj-database-url==2.1.0
 redis==5.0.1
 django-redis==5.4.0
+hiredis>=2.0.0
+django-htmlmin>=0.11.0
+psycopg2-binary>=2.9.6  # If using PostgreSQL
 
 # Email & Forms
 django-crispy-forms==2.1

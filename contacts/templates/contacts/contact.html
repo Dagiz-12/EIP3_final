@@ -318,15 +318,8 @@ general information.{% endblock %} {% block page_title %}Contact Us
       <!-- Map Container -->
       <div class="h-96 bg-gray-200 relative">
         <!-- Map Placeholder - Replace with actual map integration -->
-        <div
-          class="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center"
-        >
-          <div class="text-center text-white">
-            <i class="fas fa-map-marked-alt text-6xl mb-4"></i>
-            <h3 class="text-2xl font-bold mb-2">Addis Ababa, Ethiopia</h3>
-            <p class="text-blue-200">Map integration available</p>
-          </div>
-        </div>
+        <div id="map-container" class="absolute inset-0"></div>
+
 
         <!-- Map Controls -->
         <div class="absolute top-4 right-4 flex space-x-2">
@@ -596,8 +589,28 @@ general information.{% endblock %} {% block page_title %}Contact Us
   }
 </script>
 
-<!-- Uncomment and add your Google Maps API key -->
-<!--
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
--->
+<!-- Leaflet Map (FREE) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const mapContainer = document.getElementById("map-container");
+    if (!mapContainer) return;
+
+    // Initialize map centered on Addis Ababa
+    const map = L.map("map-container").setView([9.032, 38.746], 13);
+
+    // FREE tiles from OpenStreetMap
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "© OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Add a marker
+    const marker = L.marker([9.017778787342333, 38.778063938036766]).addTo(map);
+    marker.bindPopup("<b>EIP Ethiopia</b><br>Addis Ababa").openPopup();
+  });
+</script>
+
 {% endblock %}

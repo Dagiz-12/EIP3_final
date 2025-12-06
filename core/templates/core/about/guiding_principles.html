@@ -1,47 +1,69 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Guiding Principles
-- EIP Ethiopia{% endblock %} {% block meta_description %}Discover the core
-values and guiding principles that shape EIP Ethiopia's work and decision-making
-processes.{% endblock %} {% block page_title %}Guiding Principles{% endblock %}
-{% block page_subtitle %}The core values that shape our work and decisions
-{% endblock %} {% block breadcrumb_items %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Guiding Principles - EIP Ethiopia{% endblock %}
+
+{% block meta_description %}Discover the core values and guiding principles that shape EIP Ethiopia's work and decision-making processes.{% endblock %}
+
+{% block page_title %}Guiding Principles{% endblock %}
+{% block page_subtitle %}The core values that shape our work and decisions{% endblock %}
+
+{% block breadcrumb_items %}
 <li>
   <div class="flex items-center">
-    <i class="fas fa-chevron-right text-gray-400"></i>
+    <i class="fas fa-chevron-right text-slate-400"></i>
     <a
       href="{% url 'about_guiding_principles' %}"
-      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+      class="ml-1 text-sm font-medium text-slate-700 hover:text-sky-600 md:ml-2"
     >
       Guiding Principles
     </a>
   </div>
 </li>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="max-w-6xl mx-auto">
+  <!-- Hero Section -->
+  <div class="mb-12">
+    <div class="relative overflow-hidden rounded-2xl mb-8">
+      <div class="absolute inset-0 bg-gradient-to-r from-sky-600/90 to-sky-800/80 z-10"></div>
+      <div class="h-64 bg-gradient-to-r from-sky-500 to-sky-700 flex items-center justify-center relative">
+        <div class="text-center text-white relative z-20 px-4">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">Guiding Principles</h1>
+          <p class="text-xl opacity-90">The foundation of everything we do</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Introduction -->
   <div class="mb-12 text-center">
-    <p class="text-lg text-gray-700 max-w-3xl mx-auto">
-      Our guiding principles are the foundation of everything we do. They inform
-      our decisions, shape our programs, and ensure we stay true to our mission
-      of empowering Ethiopian communities.
-    </p>
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 border border-sky-100">
+      <p class="text-lg text-slate-700 max-w-3xl mx-auto">
+        Our guiding principles are the foundation of everything we do. They inform
+        our decisions, shape our programs, and ensure we stay true to our mission
+        of empowering Ethiopian communities since <span class="text-sky-600 font-bold">1991</span>.
+      </p>
+    </div>
   </div>
 
   <!-- Principles Grid -->
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
     {% for principle in principles %}
     <div
-      class="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift animate-on-scroll"
+      class="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift animate-on-scroll border border-slate-100 hover:border-sky-200 transition-all duration-300"
     >
       <div class="p-8">
         <div class="flex items-center mb-6">
-          <div class="text-blue-600 text-3xl mr-4">
+          <div class="text-sky-600 text-3xl mr-4">
             <i class="{{ principle.icon }}"></i>
           </div>
-          <h3 class="text-xl font-bold text-gray-800">{{ principle.title }}</h3>
+          <h3 class="text-xl font-bold text-slate-800">{{ principle.title }}</h3>
         </div>
-        <div class="text-gray-700 mb-6">{{ principle.description|safe }}</div>
-        <div class="pt-4 border-t border-gray-100">
-          <div class="text-sm text-gray-500">
+        <div class="text-slate-700 mb-6">{{ principle.description|safe }}</div>
+        <div class="pt-4 border-t border-slate-100">
+          <div class="text-sm text-slate-500">
             <i class="fas fa-sort-numeric-up mr-1"></i>
             Principle #{{ forloop.counter }}
           </div>
@@ -49,52 +71,52 @@ processes.{% endblock %} {% block page_title %}Guiding Principles{% endblock %}
       </div>
     </div>
     {% empty %}
-    <div class="col-span-3 text-center py-12">
-      <div class="text-gray-400 text-5xl mb-4">
+    <div class="col-span-3 text-center py-12 bg-sky-50 rounded-2xl">
+      <div class="text-sky-300 text-6xl mb-4">
         <i class="fas fa-compass"></i>
       </div>
-      <h3 class="text-xl font-semibold text-gray-600 mb-2">
+      <h3 class="text-xl font-semibold text-slate-600 mb-2">
         Principles Coming Soon
       </h3>
-      <p class="text-gray-500">Our guiding principles are being developed.</p>
+      <p class="text-slate-500">Our guiding principles are being developed.</p>
     </div>
     {% endfor %}
   </div>
 
   <!-- Application of Principles -->
-  <div class="mt-16 bg-blue-50 rounded-2xl p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+  <div class="mt-16 bg-gradient-to-r from-sky-500 to-sky-600 text-white rounded-2xl p-8 shadow-xl">
+    <h2 class="text-2xl font-bold mb-6 text-center">
       How We Apply These Principles
     </h2>
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-xl">
-        <div class="text-blue-600 text-3xl mb-3">
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all duration-300">
+        <div class="text-3xl mb-3">
           <i class="fas fa-clipboard-check"></i>
         </div>
         <h4 class="font-bold text-lg mb-2">In Program Design</h4>
-        <p class="text-gray-600 text-sm">
+        <p class="text-sky-100 text-sm">
           Every program is evaluated against our principles to ensure alignment
           with our core values.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl">
-        <div class="text-blue-600 text-3xl mb-3">
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all duration-300">
+        <div class="text-3xl mb-3">
           <i class="fas fa-handshake"></i>
         </div>
         <h4 class="font-bold text-lg mb-2">In Partnerships</h4>
-        <p class="text-gray-600 text-sm">
+        <p class="text-sky-100 text-sm">
           We collaborate with organizations that share similar values and
           commitment to community development.
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl">
-        <div class="text-blue-600 text-3xl mb-3">
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all duration-300">
+        <div class="text-3xl mb-3">
           <i class="fas fa-balance-scale"></i>
         </div>
         <h4 class="font-bold text-lg mb-2">In Decision Making</h4>
-        <p class="text-gray-600 text-sm">
+        <p class="text-sky-100 text-sm">
           All organizational decisions are guided by these principles to ensure
           consistency and integrity.
         </p>
@@ -106,15 +128,16 @@ processes.{% endblock %} {% block page_title %}Guiding Principles{% endblock %}
   <div class="mt-12 flex justify-between items-center">
     <a
       href="{% url 'about_who_we_are' %}"
-      class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+      class="text-sky-600 hover:text-sky-800 font-medium inline-flex items-center group"
     >
-      <i class="fas fa-arrow-left mr-2"></i> Who We Are
+      <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform duration-200"></i> 
+      Who We Are
     </a>
     <a
       href="{% url 'about_strategies' %}"
-      class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center"
+      class="bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
     >
-      Our Strategies <i class="fas fa-arrow-right ml-2"></i>
+      Our Strategies <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform duration-200"></i>
     </a>
   </div>
 </div>

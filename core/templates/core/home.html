@@ -13,47 +13,52 @@ Empowering Ethiopian communities through sustainable development initiatives, ed
 {% endblock %}
 
 {% block content %}
-<!-- Hero Slider -->
-
-
 <!-- Hero Slider with Enhanced Design -->
-<div class="hero-slider relative overflow-hidden">
+<div class="hero-slider relative overflow-hidden rounded-b-3xl shadow-xl">
+  <div class="absolute inset-0 bg-gradient-to-br from-sky-900/20 via-sky-700/10 to-sky-500/5 z-0"></div>
+  
+  <!-- Animated background elements -->
   <div class="absolute inset-0 floating-element">
-    <div class="absolute top-10 left-10 w-64 h-64 bg-sky-100 rounded-full opacity-20"></div>
-    <div class="absolute bottom-10 right-10 w-96 h-96 bg-sky-50 rounded-full opacity-30"></div>
+    <div class="absolute top-10 left-10 w-64 h-64 bg-sky-100 rounded-full opacity-20 animate-pulse-slow"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-sky-50 rounded-full opacity-30 animate-float"></div>
+    <div class="absolute top-1/2 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-spin-slow"></div>
   </div>
   
-  <div class="swiper-container h-full">
+  <div class="swiper-container h-[70vh] min-h-[500px]">
     <div class="swiper-wrapper">
       {% for slide in slider_images %}
       <div class="swiper-slide">
         <div
-          class="hero-slide h-full"
-          style="background-image: url('{% if slide.image %}{{ slide.image.url }}{% else %}{% static 'images/default-slide.jpg' %}{% endif %}')"
+          class="hero-slide h-full relative bg-cover bg-center"
+          style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), url('{% if slide.image %}{{ slide.image.url }}{% else %}{% static 'images/default-slide.jpg' %}{% endif %}')"
         >
           <div class="slide-overlay h-full flex items-center">
-            <div class="container mx-auto px-4 text-white">
+            <div class="container mx-auto px-4 text-white relative z-10">
               <div class="max-w-2xl animate-fadeInUp">
-                <div class="inline-block mb-4">
-                  <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
-                    Featured
+                <div class="inline-block mb-6 transform hover:scale-105 transition-transform duration-300">
+                  <span class="bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full text-sm font-semibold border border-white/30">
+                    <i class="fas fa-star mr-2"></i> Featured Initiative
                   </span>
                 </div>
-                <h1 class="text-5xl font-bold mb-4 leading-tight">{{ slide.title }}</h1>
-                <p class="text-xl mb-8 opacity-90">{{ slide.description }}</p>
+                <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight drop-shadow-lg">
+                  {{ slide.title|default:"Empowering Ethiopian Communities" }}
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90 font-light max-w-xl">
+                  {{ slide.description|default:"Building sustainable futures through education, healthcare, and economic development." }}
+                </p>
                 {% if slide.link %}
                 <div class="flex flex-wrap gap-4">
                   <a
                     href="{{ slide.link }}"
-                    class="inline-flex items-center bg-white text-sky-700 hover:bg-sky-50 px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                    class="inline-flex items-center bg-white text-sky-700 hover:bg-sky-50 px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg group"
                   >
-                    Learn More <i class="ml-2 fas fa-arrow-right"></i>
+                    Learn More <i class="ml-3 fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
                   </a>
                   <a
                     href="{% url 'contact' %}"
-                    class="inline-flex items-center bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-4 rounded-lg font-semibold transition-all duration-300"
+                    class="inline-flex items-center bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
                   >
-                    Contact Us
+                    <i class="fas fa-handshake mr-3"></i> Partner With Us
                   </a>
                 </div>
                 {% endif %}
@@ -66,26 +71,35 @@ Empowering Ethiopian communities through sustainable development initiatives, ed
       <!-- Default slide if no slider images -->
       <div class="swiper-slide">
         <div
-          class="hero-slide h-full"
-          style="background-image: url('{% static 'images/default-slide.jpg' %}')"
+          class="hero-slide h-full bg-gradient-to-br from-sky-900 to-sky-700"
         >
           <div class="slide-overlay h-full flex items-center">
             <div class="container mx-auto px-4 text-white">
               <div class="max-w-2xl animate-fadeInUp">
-                <h1 class="text-5xl font-bold mb-4">Empowering Ethiopian Communities</h1>
-                <p class="text-xl mb-8">Building sustainable futures through education, healthcare, and economic development.</p>
+                <div class="inline-block mb-6">
+                  <span class="bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full text-sm font-semibold border border-white/30">
+                    <i class="fas fa-heart mr-2"></i> Making a Difference
+                  </span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight">
+                  Empowering Ethiopian Communities
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90 font-light">
+                  Building sustainable futures through education, healthcare, and economic development.
+                </p>
                 <div class="flex flex-wrap gap-4">
                   <a
                     href="{% url 'about_who_we_are' %}"
-                    class="inline-flex items-center bg-white text-sky-700 hover:bg-sky-50 px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                    class="inline-flex items-center bg-white text-sky-700 hover:bg-sky-50 px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg group"
                   >
-                    Learn About Us <i class="ml-2 fas fa-arrow-right"></i>
+                    <i class="fas fa-users mr-3"></i> Learn About Us
+                    <i class="ml-3 fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
                   </a>
                   <a
                     href="{% url 'contact' %}"
-                    class="inline-flex items-center bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-4 rounded-lg font-semibold transition-all duration-300"
+                    class="inline-flex items-center bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
                   >
-                    Get Involved
+                    <i class="fas fa-hands-helping mr-3"></i> Get Involved
                   </a>
                 </div>
               </div>
@@ -98,68 +112,78 @@ Empowering Ethiopian communities through sustainable development initiatives, ed
 
     <!-- Slider Controls -->
     <div
-      class="swiper-button-next text-white bg-black/20 hover:bg-black/40 backdrop-blur-sm rounded-full w-12 h-12 transform hover:scale-110 transition-all duration-200"
-    ></div>
+      class="swiper-button-next text-white bg-black/20 hover:bg-sky-600 backdrop-blur-sm rounded-full w-12 h-12 transform hover:scale-110 transition-all duration-200 shadow-lg"
+    >
+      <i class="fas fa-chevron-right"></i>
+    </div>
     <div
-      class="swiper-button-prev text-white bg-black/20 hover:bg-black/40 backdrop-blur-sm rounded-full w-12 h-12 transform hover:scale-110 transition-all duration-200"
-    ></div>
-    <div class="swiper-pagination"></div>
+      class="swiper-button-prev text-white bg-black/20 hover:bg-sky-600 backdrop-blur-sm rounded-full w-12 h-12 transform hover:scale-110 transition-all duration-200 shadow-lg"
+    >
+      <i class="fas fa-chevron-left"></i>
+    </div>
+    <div class="swiper-pagination !bottom-6"></div>
   </div>
 </div>
 
-
-
-
-<!-- Quick Stats -->
 <!-- Quick Stats with Animation -->
-<section class="py-16 bg-gradient-to-br from-sky-50 to-white relative overflow-hidden">
+<!-- Quick Stats with Animation -->
+<section class="py-16 bg-gradient-to-b from-white to-sky-50 relative overflow-hidden">
   <div class="absolute inset-0">
-    <div class="absolute top-0 right-0 w-64 h-64 bg-sky-100 rounded-full -translate-y-32 translate-x-32 opacity-30"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-sky-50 rounded-full translate-y-48 -translate-x-48 opacity-40"></div>
+    <div class="absolute top-0 right-0 w-64 h-64 bg-sky-100 rounded-full -translate-y-32 translate-x-32 opacity-30 animate-pulse"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-sky-50 rounded-full translate-y-48 -translate-x-48 opacity-40 animate-float-slow"></div>
   </div>
   
   <div class="container mx-auto px-4 relative z-10">
-    <div class="text-center mb-12 animate-fadeInUp">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-        Making a Difference
+    <div class="text-center mb-16 animate-fadeInUp">
+      <div class="inline-block mb-4">
+        <span class="bg-sky-100 text-sky-700 px-6 py-2 rounded-full text-sm font-semibold">
+          <i class="fas fa-chart-line mr-2"></i> Our Impact
+        </span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+        Making a Difference Since 1991
       </h2>
-      <div class="w-24 h-1 bg-sky-500 mx-auto mb-6"></div>
-      <p class="text-gray-600 max-w-3xl mx-auto text-lg">
-        Our impact in numbers across Ethiopia
+      <div class="w-32 h-1 bg-gradient-to-r from-sky-500 to-sky-300 mx-auto mb-6 rounded-full"></div>
+      <p class="text-slate-600 max-w-3xl mx-auto text-lg md:text-xl">
+        Over three decades of dedicated service to Ethiopian communities
       </p>
     </div>
     
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-      <div class="stat-card p-6 text-center pop-up animate-delay-100">
-        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
-          <span class="counter" data-target="15">0</span>+
+      <div class="stat-card p-6 text-center pop-up animate-delay-100 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-sky-200">
+        <div class="text-5xl md:text-6xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="{% now 'Y' as current_year %}{{ current_year|add:'-1991' }}">0</span>+
         </div>
-        <p class="text-gray-600 font-medium">Years of Service</p>
-        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
+        <p class="text-slate-700 font-semibold text-lg">Years of Service</p>
+        <div class="mt-4 w-16 h-1 bg-gradient-to-r from-sky-400 to-sky-200 mx-auto rounded-full"></div>
+        <p class="text-slate-500 text-sm mt-2">Since 1991</p>
       </div>
       
-      <div class="stat-card p-6 text-center pop-up animate-delay-200">
-        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
-          <span class="counter" data-target="50">0</span>+
+      <div class="stat-card p-6 text-center pop-up animate-delay-200 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-sky-200">
+        <div class="text-5xl md:text-6xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="11">0</span>+
         </div>
-        <p class="text-gray-600 font-medium">Projects Completed</p>
-        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
+        <p class="text-slate-700 font-semibold text-lg">Current Projects</p>
+        <div class="mt-4 w-16 h-1 bg-gradient-to-r from-sky-400 to-sky-200 mx-auto rounded-full"></div>
+        <p class="text-slate-500 text-sm mt-2">Across Ethiopia</p>
       </div>
       
-      <div class="stat-card p-6 text-center pop-up animate-delay-300">
-        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
-          <span class="counter" data-target="100">0</span>K+
+      <div class="stat-card p-6 text-center pop-up animate-delay-300 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-sky-200">
+        <div class="text-5xl md:text-6xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="8">0</span>+
         </div>
-        <p class="text-gray-600 font-medium">People Impacted</p>
-        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
+        <p class="text-slate-700 font-semibold text-lg">International Partners</p>
+        <div class="mt-4 w-16 h-1 bg-gradient-to-r from-sky-400 to-sky-200 mx-auto rounded-full"></div>
+        <p class="text-slate-500 text-sm mt-2">Global Network</p>
       </div>
       
-      <div class="stat-card p-6 text-center pop-up animate-delay-500">
-        <div class="text-4xl md:text-5xl font-bold mb-2 text-sky-600">
-          <span class="counter" data-target="25">0</span>+
+      <div class="stat-card p-6 text-center pop-up animate-delay-500 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-sky-200">
+        <div class="text-5xl md:text-6xl font-bold mb-2 text-sky-600">
+          <span class="counter" data-target="4">0</span>+
         </div>
-        <p class="text-gray-600 font-medium">Active Partners</p>
-        <div class="mt-4 w-12 h-1 bg-sky-200 mx-auto"></div>
+        <p class="text-slate-700 font-semibold text-lg">Regions Covered</p>
+        <div class="mt-4 w-16 h-1 bg-gradient-to-r from-sky-400 to-sky-200 mx-auto rounded-full"></div>
+        <p class="text-slate-500 text-sm mt-2">Nationwide Reach</p>
       </div>
     </div>
   </div>
@@ -173,31 +197,37 @@ Empowering Ethiopian communities through sustainable development initiatives, ed
 {% include 'core/partials/cta.html' %}
 
 <!-- Newsletter Pop-up -->
-<!-- Newsletter Pop-up (Optional) -->
-<div id="newsletter-popup" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
-  <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-scaleIn">
+<div id="newsletter-popup" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 backdrop-blur-sm">
+  <div class="bg-gradient-to-br from-white to-sky-50 rounded-3xl shadow-2xl max-w-md w-full p-8 animate-scaleIn border border-sky-100">
     <div class="text-center mb-6">
-      <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-        <i class="fas fa-envelope-open-text text-3xl text-sky-600"></i>
+      <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-sky-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+        <i class="fas fa-envelope-open-text text-3xl text-white"></i>
       </div>
-      <h3 class="text-2xl font-bold text-gray-800 mb-2">Stay Updated</h3>
-      <p class="text-gray-600">Get the latest news and updates from EIP Ethiopia</p>
+      <h3 class="text-2xl font-bold text-slate-800 mb-2">Stay Updated</h3>
+      <p class="text-slate-600">Get the latest news and updates from EIP Ethiopia delivered to your inbox.</p>
     </div>
     
     <form id="popup-newsletter-form" class="space-y-4">
-      <input type="email" placeholder="Your email address" 
-             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-             required>
+      <div class="relative">
+        <input type="email" placeholder="Your email address" 
+               class="w-full px-4 py-3 pl-12 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-white/80"
+               required>
+        <i class="fas fa-envelope absolute left-4 top-4 text-slate-400"></i>
+      </div>
       <button type="submit" 
-              class="w-full bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white py-3 rounded-lg font-semibold transition-all duration-300">
-        Subscribe
+              class="w-full bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+        Subscribe to Newsletter
       </button>
     </form>
     
     <button onclick="document.getElementById('newsletter-popup').classList.add('hidden')"
-            class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 hover:bg-slate-100 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200">
       <i class="fas fa-times text-xl"></i>
     </button>
+    
+    <p class="text-xs text-slate-500 text-center mt-4">
+      <i class="fas fa-lock mr-1"></i> We respect your privacy. Unsubscribe anytime.
+    </p>
   </div>
 </div>
 {% endblock %}
@@ -205,4 +235,6 @@ Empowering Ethiopian communities through sustainable development initiatives, ed
 {% block extra_js %}
 <!-- Home page specific JavaScript -->
 <script src="{% static 'js/home.js' %}"></script>
+
+
 {% endblock %}

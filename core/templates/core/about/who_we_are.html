@@ -1,59 +1,149 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Who We Are - EIP
-Ethiopia{% endblock %} {% block meta_description %}Learn about EIP Ethiopia's
-history, mission, vision, and our journey in empowering Ethiopian communities
-since 2005.{% endblock %} {% block page_title %}Who We Are{% endblock %} {%
-block page_subtitle %}Our journey, mission, and vision for a better Ethiopia{%
-endblock %} {% block breadcrumb_items %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Who We Are - EIP Ethiopia{% endblock %}
+
+{% block meta_description %}Learn about EIP Ethiopia's history, mission, vision, and our journey in empowering Ethiopian communities since 2005.{% endblock %}
+
+{% block page_title %}Who We Are{% endblock %}
+
+{% block page_subtitle %}Our journey, mission, and vision for a better Ethiopia{% endblock %}
+
+{% block breadcrumb_items %}
 <li>
   <div class="flex items-center">
-    <i class="fas fa-chevron-right text-gray-400"></i>
+    <i class="fas fa-chevron-right text-slate-400"></i>
     <a
       href="{% url 'about_who_we_are' %}"
-      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+      class="ml-1 text-sm font-medium text-slate-700 hover:text-sky-600 md:ml-2"
     >
       Who We Are
     </a>
   </div>
 </li>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="max-w-6xl mx-auto">
-  <!-- History Section -->
-  <div class="mb-16">
-    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-      Brief History of Ethiopian Institute of Peace 
-    </h2>
-    <div> <p>
-    
-
-Ethiopian Institute of Peace (EIP) for Ethiopia and the Horn of Africa, established in 1991, is a non-governmental, nonpartisan and nonprofit making organization that grew out of the Ad hoc Peace Committee (AHPC). Historically, EIP is known to be the first NGO that was founded by native Ethiopian leadership that works in peace building and conflict resolution.
-
-The AHPC was established in December 1989-1990 to promote peace, mediation and reconciliation through dialogue and negotiation among the Ethiopian civil war conflicting parties of 1974-90.
-
-The process began at a critical period of Ethiopian history when the ruling Derg was engaged in vicious military campaign to contain protracted civil wars throughout the country. The conflict resulted in close of a million dead, wounded, and disabled; and millions of displaced refugees. The civil war was compounded further by the crisis of drought and famine. The toll of lives, mainly women and children, and the physical destruction, beyond imagination for an impoverished people, were unparalleled in past Ethiopia history.
-
-At the beginning of the civil war, the combatants seemed incapable of immediate victory but were unwilling to compromise. They were looking for what seemed to be a face-saving intervention that will end the tragedy sooner with win-win situation or, at least, negotiated power sharing. The only way this can be done was through acceptable third-party mediators or neutral elders capable of breaking the cycles of vengeance and violence.
-
-The conflicting parties and the rest of the nation sought an indigenous mechanism for consolidating various peace initiatives and resolving the conflicts. The mechanism they sought was to promote serious negotiations about power sharing, co-existence and reconciliation.
-
-Sensing this critical need and prompted by those close to the conflicting parties, the Ad-hoc Committee for Peace (AHPC) was formally founded in 1990 by a neutral group of elders and mediators who came from diverse Ethio-Eritrean ethnic and religious backgrounds. To be eligible, the members had to believe in the Committee’s mission to resolve conflicts through dialogue and conciliation. They had to enjoy broad-based constituency, acceptability, able to exert moral influence to bring the warring factions to the table. The selection of the members, who came to be known as the founders, was established through direct but cross consultation with the leadership of the conflicting parties and factions. (Two of the founding elder-members were already engaged a year earlier in organizing a series of bi-lateral covert meetings among the conflicting parties.)
-
-The founders first met as a group in February1991 at the Scanticon Conference Center (now Doral Forrestal), Princeton, New Jersey to unite as a solemn peace body with each other and to draw mediation and reconciliation strategies among the conflicting parties. To fulfill its mission, the Committee solicited the technical assistance and financial support from the Life and Peace Institute (LPI), a Sweden-based humanitarian organization.
-
-To insure international acceptability and enhance its credibility, the Committee also sought the technical assistance and organizational support from LPI’s partner organizations, namely, the Horn of Africa Project at Conrad Grebel College in Canada and the International Conciliation Service of the Eastern Mennonite Central Committee in Virginia, USA.
-
-After the establishment of its guidelines during the first two gatherings, in early1991, the Committee immediately and directly established contact with the leaders of every political organization and conflicting party. In order to do so successfully and to facilitate smooth negotiations with all the parties, the Committee designated a respective elder-member as an ambassador or elder-contact to the leadership of a respective conflicting party. The process culminated in getting all the political and conflicting parties to agreeing to meet in Caux, Switzerland in early June 1991.
-
-Subsequently, as it became evident that the Military Regime led by Col. Mengistu Haile Mariam was losing ground to the opposition forces as well as meaningful support nationally and internationally, the schedule of the meeting was moved forward to early May 1991 upon the request of the leaders of many of the conflicting parties. The Derg government requested a conference on ending the conflicts, held under the auspices of Washington in London.
-
-AHPC planned a meeting consisting of representatives of each and every one of the conflicting parties, with none left behind. Contrary to this important plan initially accepted by all, the London meeting was limited to delegates of the Derg, EPLF, EPRDF, and OLF. The Derg asked the AHPC to stay behind. When some of the major opposition groups finally but reluctantly agreed to the London meeting, they asked the AHPC to reschedule their conference for a later date.
-
-At the London meeting, the United States got to mediate the peaceful surrender of Addis Ababa to the Ethiopian People’s Revolutionary Democratic Front (EPRDF) and Asmara to the Eritrean Popular Liberation Front (EPLF). However the task of forming a transitional government was left to the conflicting parties themselves. That took place in Addis Ababa in June 1991 under the banner of the Peace and Democracy Conference. The AHPC helped defray the expenses of the important meeting. Its members as observers also represented it at the Conference. At the conclusion of the political gathering and the formation of the Transitional government, Professor Ephraim Isaac, the Chairman of the AHPC gave one of the four concluding remarks and counsel given by the observers.
-
-The Ad Hoc Committee was supposed to disband when peace had been achieved in Ethiopia. However, it was felt among the group of Ethiopians and the international partners that the work involved was not of a temporary nature. The contact groups encouraged the Committee that it should open an office in Addis Ababa in order to continue with its efforts in peace making, mediation and conflict resolution. Search for peace involves continued engagement; and it was felt that peace and development go hand in hand. Thus, AHCPD was established in Ethiopia in January 1992. Subsequently, the office changed its name to Peace and Development Committee in 1994 and to Ethiopian Institute of Peace in 2011.
-
-    </p></div>
+  <!-- Hero Section -->
+  <div class="mb-12">
+    <div class="relative overflow-hidden rounded-2xl mb-8">
+      <div class="absolute inset-0 bg-gradient-to-r from-sky-600/90 to-sky-800/80 z-10"></div>
+      <div class="h-64 bg-gradient-to-r from-sky-500 to-sky-700 flex items-center justify-center relative">
+        <div class="text-center text-white relative z-20 px-4">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">Brief History</h1>
+          <p class="text-xl opacity-90">Ethiopian Institute of Peace for Ethiopia and the Horn of Africa</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Mission & Vision -->
+  <!-- History Section -->
+  <div class="mb-16">
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-slate-100">
+      <div class="prose prose-lg max-w-none text-slate-700">
+        <p class="lead text-xl text-slate-800 font-medium mb-6">
+          <span class="text-sky-600 font-bold">Ethiopian Institute of Peace (EIP)</span> for Ethiopia and the Horn of Africa, established in 1991, is a non-governmental, nonpartisan and nonprofit making organization that grew out of the Ad hoc Peace Committee (AHPC).
+        </p>
+        
+        <p class="mb-6">
+          Historically, EIP is known to be the first NGO that was founded by native Ethiopian leadership that works in peace building and conflict resolution. The AHPC was established in December 1989-1990 to promote peace, mediation and reconciliation through dialogue and negotiation among the Ethiopian civil war conflicting parties of 1974-90.
+        </p>
 
+        <div class="bg-sky-50 border-l-4 border-sky-500 p-6 my-8 rounded-r-lg">
+          <h3 class="text-xl font-bold text-slate-800 mb-3 flex items-center">
+            <i class="fas fa-lightbulb text-sky-500 mr-3"></i>
+            Our Founding Vision
+          </h3>
+          <p class="text-slate-700">
+            The process began at a critical period of Ethiopian history when the nation sought indigenous mechanisms for consolidating various peace initiatives and resolving conflicts through dialogue, power sharing, co-existence and reconciliation.
+          </p>
+        </div>
+
+        <h3 class="text-2xl font-bold text-slate-800 mt-10 mb-4">The Journey of Peace Building</h3>
+        
+        <p class="mb-6">
+          Sensing this critical need and prompted by those close to the conflicting parties, the Ad-hoc Committee for Peace (AHPC) was formally founded in 1990 by a neutral group of elders and mediators who came from diverse Ethio-Eritrean ethnic and religious backgrounds.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 my-8">
+          <div class="bg-gradient-to-br from-sky-50 to-white p-6 rounded-xl border border-sky-100">
+            <div class="text-sky-600 text-3xl mb-3">
+              <i class="fas fa-handshake"></i>
+            </div>
+            <h4 class="font-bold text-lg text-slate-800 mb-2">Mediation & Dialogue</h4>
+            <p class="text-slate-600">Promoting peace through negotiation and reconciliation among conflicting parties.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-sky-50 to-white p-6 rounded-xl border border-sky-100">
+            <div class="text-sky-600 text-3xl mb-3">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4 class="font-bold text-lg text-slate-800 mb-2">Community Leadership</h4>
+            <p class="text-slate-600">Founded by native Ethiopian leadership focused on sustainable peace building.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-slate-800 mt-10 mb-4">International Collaboration</h3>
+        
+        <p class="mb-6">
+          To fulfill its mission, the Committee solicited the technical assistance and financial support from the Life and Peace Institute (LPI), a Sweden-based humanitarian organization. To ensure international acceptability and enhance its credibility, the Committee also sought technical assistance from LPI's partner organizations.
+        </p>
+
+        <div class="my-8">
+          <h4 class="text-xl font-bold text-slate-800 mb-4">Key Milestones:</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <div class="w-8 h-8 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-check text-sm"></i>
+              </div>
+              <span class="text-slate-700">First meeting as a group in February 1991 at Princeton, New Jersey</span>
+            </li>
+            <li class="flex items-start">
+              <div class="w-8 h-8 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-check text-sm"></i>
+              </div>
+              <span class="text-slate-700">Direct contact established with all political organizations and conflicting parties</span>
+            </li>
+            <li class="flex items-start">
+              <div class="w-8 h-8 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-check text-sm"></i>
+              </div>
+              <span class="text-slate-700">All-party meeting scheduled in Caux, Switzerland in early June 1991</span>
+            </li>
+          </ul>
+        </div>
+
+        <h3 class="text-2xl font-bold text-slate-800 mt-10 mb-4">Transition and Evolution</h3>
+        
+        <p class="mb-6">
+          The Ad Hoc Committee was supposed to disband when peace had been achieved in Ethiopia. However, it was felt among the group of Ethiopians and the international partners that the work involved was not of a temporary nature.
+        </p>
+
+        <blockquote class="border-l-4 border-sky-400 pl-6 py-2 my-8 italic text-slate-700 bg-sky-50/50 p-4 rounded-r-lg">
+          "Search for peace involves continued engagement; and it was felt that peace and development go hand in hand."
+        </blockquote>
+
+        <p class="mb-6">
+          Thus, AHCPD was established in Ethiopia in January 1992. Subsequently, the office changed its name to Peace and Development Committee in 1994 and to Ethiopian Institute of Peace in 2011.
+        </p>
+
+        <div class="bg-gradient-to-r from-sky-500 to-sky-600 text-white rounded-2xl p-8 mt-12">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-2/3 mb-6 md:mb-0">
+              <h3 class="text-2xl font-bold mb-3">Our Continuing Mission</h3>
+              <p>Today, EIP continues to work towards sustainable peace and development through community engagement, capacity building, and partnership development across Ethiopia and the Horn of Africa.</p>
+            </div>
+            <div class="md:w-1/3 text-center">
+              <a href="{% url 'what_we_do' %}" 
+                 class="inline-flex items-center bg-white text-sky-600 hover:bg-sky-50 px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                Our Current Work <i class="ml-2 fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,75 +1,95 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Strategies &
-Priorities - EIP Ethiopia{% endblock %} {% block meta_description %}Learn about
-EIP Ethiopia's strategic priorities and approaches to sustainable community
-development in Ethiopia.{% endblock %} {% block page_title %}Strategies &
-Priorities{% endblock %} {% block page_subtitle %}Our strategic approach to
-sustainable community development{% endblock %} {% block breadcrumb_items %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Strategies & Priorities - EIP Ethiopia{% endblock %}
+
+{% block meta_description %}Learn about EIP Ethiopia's strategic priorities and approaches to sustainable community development in Ethiopia.{% endblock %}
+
+{% block page_title %}Strategies & Priorities{% endblock %}
+{% block page_subtitle %}Our strategic approach to sustainable community development since 1991{% endblock %}
+
+{% block breadcrumb_items %}
 <li>
   <div class="flex items-center">
-    <i class="fas fa-chevron-right text-gray-400"></i>
+    <i class="fas fa-chevron-right text-slate-400"></i>
     <a
       href="{% url 'about_strategies' %}"
-      class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+      class="ml-1 text-sm font-medium text-slate-700 hover:text-sky-600 md:ml-2"
     >
       Strategies & Priorities
     </a>
   </div>
 </li>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="max-w-6xl mx-auto">
   <!-- Introduction -->
   <div class="mb-12">
-    <p class="text-lg text-gray-700">
-      Our strategic framework guides our work and ensures we make the greatest
-      possible impact.
-    </p>
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 border border-sky-100">
+      <p class="text-lg text-slate-700">
+        Our strategic framework guides our work and ensures we make the greatest
+        possible impact across Ethiopia. Built on <span class="text-sky-600 font-bold">30+ years</span> of experience since our founding in 1991.
+      </p>
+    </div>
   </div>
 
   <!-- Strategic Priorities -->
   <div class="mb-16">
-    <h2 class="text-2xl font-bold text-gray-800 mb-8">Strategic Priorities</h2>
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4">Strategic Priorities</h2>
+      <div class="w-32 h-1 bg-gradient-to-r from-sky-500 to-sky-300 mx-auto rounded-full"></div>
+    </div>
+    
     <div class="space-y-8">
       {% for strategy in strategies %}
       <div
-        class="bg-white rounded-2xl shadow-lg overflow-hidden animate-on-scroll"
+        class="bg-white rounded-2xl shadow-lg overflow-hidden animate-on-scroll border border-slate-100 hover:border-sky-200 transition-all duration-300"
       >
         <div class="md:flex">
-          <div class="md:w-1/4 bg-blue-50 p-8 flex items-center justify-center">
+          <div class="md:w-1/4 bg-gradient-to-b from-sky-50 to-sky-100 p-8 flex items-center justify-center">
             <div class="text-center">
-              <div class="text-blue-600 text-4xl mb-3">
+              <div class="text-sky-600 text-4xl mb-3">
                 <i class="{{ strategy.icon }}"></i>
               </div>
-              <h3 class="font-bold text-lg text-gray-800">
+              <h3 class="font-bold text-lg text-slate-800">
                 {{ strategy.title }}
               </h3>
             </div>
           </div>
           <div class="md:w-3/4 p-8">
-            <div class="prose max-w-none">{{ strategy.description|safe }}</div>
-            <div class="mt-6 pt-6 border-t border-gray-100">
+            <div class="prose max-w-none text-slate-700">{{ strategy.description|safe }}</div>
+            <div class="mt-6 pt-6 border-t border-slate-100">
               <div class="flex flex-wrap gap-2">
                 <span
-                  class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full"
+                  class="px-3 py-1 bg-sky-100 text-sky-800 text-xs font-semibold rounded-full"
                 >
-                  Priority {{ forloop.counter }}
+                  <i class="fas fa-flag mr-1"></i> Priority {{ forloop.counter }}
                 </span>
                 <span
-                  class="px-3 py-1 bg-gray-100 text-gray-800 text-xs font-semibold rounded-full"
+                  class="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-full"
                 >
-                  Ongoing
+                  <i class="fas fa-calendar-check mr-1"></i> Ongoing
                 </span>
+                {% if forloop.first %}
+                <span
+                  class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-semibold rounded-full"
+                >
+                  <i class="fas fa-star mr-1"></i> Key Focus
+                </span>
+                {% endif %}
               </div>
             </div>
           </div>
         </div>
       </div>
       {% empty %}
-      <div class="text-center py-12 bg-gray-50 rounded-2xl">
-        <i class="fas fa-chart-line text-5xl text-gray-400 mb-4"></i>
-        <h3 class="text-xl font-semibold text-gray-600 mb-2">
+      <div class="text-center py-12 bg-sky-50 rounded-2xl">
+        <i class="fas fa-chart-line text-5xl text-sky-300 mb-4"></i>
+        <h3 class="text-xl font-semibold text-slate-600 mb-2">
           Strategic Priorities
         </h3>
-        <p class="text-gray-500">
+        <p class="text-slate-500">
           Our strategic priorities are being developed.
         </p>
       </div>
@@ -79,7 +99,7 @@ sustainable community development{% endblock %} {% block breadcrumb_items %}
 
   <!-- Implementation Approach -->
   <div
-    class="mb-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-2xl p-8"
+    class="mb-16 bg-gradient-to-r from-sky-600 to-sky-800 text-white rounded-2xl p-8 shadow-xl"
   >
     <h2 class="text-2xl font-bold mb-6 text-center">
       Our Implementation Approach
@@ -90,7 +110,7 @@ sustainable community development{% endblock %} {% block breadcrumb_items %}
           <i class="fas fa-search"></i>
         </div>
         <h4 class="font-bold mb-2">Needs Assessment</h4>
-        <p class="text-blue-100 text-sm">
+        <p class="text-sky-200 text-sm">
           Comprehensive community needs analysis
         </p>
       </div>
@@ -100,7 +120,7 @@ sustainable community development{% endblock %} {% block breadcrumb_items %}
           <i class="fas fa-users-cog"></i>
         </div>
         <h4 class="font-bold mb-2">Community Engagement</h4>
-        <p class="text-blue-100 text-sm">
+        <p class="text-sky-200 text-sm">
           Active involvement of local stakeholders
         </p>
       </div>
@@ -110,7 +130,7 @@ sustainable community development{% endblock %} {% block breadcrumb_items %}
           <i class="fas fa-tools"></i>
         </div>
         <h4 class="font-bold mb-2">Capacity Building</h4>
-        <p class="text-blue-100 text-sm">Skills development and training</p>
+        <p class="text-sky-200 text-sm">Skills development and training</p>
       </div>
 
       <div class="text-center">
@@ -118,7 +138,7 @@ sustainable community development{% endblock %} {% block breadcrumb_items %}
           <i class="fas fa-chart-bar"></i>
         </div>
         <h4 class="font-bold mb-2">Monitoring & Evaluation</h4>
-        <p class="text-blue-100 text-sm">
+        <p class="text-sky-200 text-sm">
           Regular progress tracking and assessment
         </p>
       </div>
@@ -127,44 +147,44 @@ sustainable community development{% endblock %} {% block breadcrumb_items %}
 
   <!-- Focus Areas -->
   <div class="mb-16">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Focus Areas</h2>
+    <h2 class="text-2xl font-bold text-slate-800 mb-6">Focus Areas</h2>
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
-        <div class="text-green-600 text-3xl mb-3">
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift border border-slate-100">
+        <div class="text-emerald-600 text-3xl mb-3">
           <i class="fas fa-graduation-cap"></i>
         </div>
         <h4 class="font-bold text-lg mb-2">Education</h4>
-        <p class="text-gray-600 text-sm">
+        <p class="text-slate-600 text-sm">
           Access to quality education and vocational training
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
-        <div class="text-red-600 text-3xl mb-3">
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift border border-slate-100">
+        <div class="text-red-500 text-3xl mb-3">
           <i class="fas fa-heartbeat"></i>
         </div>
         <h4 class="font-bold text-lg mb-2">Healthcare</h4>
-        <p class="text-gray-600 text-sm">
+        <p class="text-slate-600 text-sm">
           Improved healthcare access and awareness
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
-        <div class="text-yellow-600 text-3xl mb-3">
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift border border-slate-100">
+        <div class="text-amber-500 text-3xl mb-3">
           <i class="fas fa-hand-holding-usd"></i>
         </div>
         <h4 class="font-bold text-lg mb-2">Economic Empowerment</h4>
-        <p class="text-gray-600 text-sm">
+        <p class="text-slate-600 text-sm">
           Income generation and livelihood support
         </p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift">
-        <div class="text-teal-600 text-3xl mb-3">
+      <div class="bg-white p-6 rounded-xl shadow-md text-center hover-lift border border-slate-100">
+        <div class="text-teal-500 text-3xl mb-3">
           <i class="fas fa-tree"></i>
         </div>
         <h4 class="font-bold text-lg mb-2">Environment</h4>
-        <p class="text-gray-600 text-sm">Sustainable resource management</p>
+        <p class="text-slate-600 text-sm">Sustainable resource management</p>
       </div>
     </div>
   </div>
@@ -173,15 +193,16 @@ sustainable community development{% endblock %} {% block breadcrumb_items %}
   <div class="flex justify-between items-center">
     <a
       href="{% url 'about_guiding_principles' %}"
-      class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+      class="text-sky-600 hover:text-sky-800 font-medium inline-flex items-center group"
     >
-      <i class="fas fa-arrow-left mr-2"></i> Guiding Principles
+      <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform duration-200"></i> 
+      Guiding Principles
     </a>
     <a
       href="{% url 'about_board_members' %}"
-      class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 inline-flex items-center"
+      class="bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
     >
-      Meet Our Board <i class="fas fa-arrow-right ml-2"></i>
+      Meet Our Board <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform duration-200"></i>
     </a>
   </div>
 </div>

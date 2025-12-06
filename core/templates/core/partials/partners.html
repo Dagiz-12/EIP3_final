@@ -1,35 +1,40 @@
 <!-- Partners & Donors -->
-<section class="py-16 bg-gray-50">
+<section class="py-16 bg-gradient-to-b from-sky-50 to-white">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+    <div class="text-center mb-12 animate-fadeInUp">
+      <div class="inline-block mb-4">
+        <span class="bg-sky-100 text-sky-700 px-6 py-2 rounded-full text-sm font-semibold">
+          <i class="fas fa-handshake mr-2"></i> Our Network
+        </span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
         Our Partners & Donors
       </h2>
-      <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-      <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+      <div class="w-24 h-1 bg-gradient-to-r from-sky-500 to-sky-300 mx-auto mb-6 rounded-full"></div>
+      <p class="text-slate-600 max-w-3xl mx-auto text-lg">
         We collaborate with organizations and individuals who share our vision
         for sustainable development in Ethiopia.
       </p>
     </div>
 
     {% if partners %}
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
       {% for partner in partners %}
       <div
-        class="flex items-center justify-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 animate-on-scroll"
+        class="flex items-center justify-center p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 animate-on-scroll border border-slate-100 hover:border-sky-200"
       >
         {% if partner.logo %}
         <img
           src="{{ partner.logo.url }}"
           alt="{{ partner.name }}"
-          class="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+          class="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"
         />
         {% else %}
         <div class="text-center">
-          <div class="text-3xl text-gray-400 mb-2">
+          <div class="text-3xl text-sky-400 mb-2">
             <i class="fas fa-handshake"></i>
           </div>
-          <span class="text-sm font-medium text-gray-600"
+          <span class="text-sm font-medium text-slate-600"
             >{{ partner.name }}</span
           >
         </div>
@@ -39,28 +44,29 @@
     </div>
 
     <div class="text-center mt-12">
-      <p class="text-gray-600 mb-4">Interested in partnering with us?</p>
+      <p class="text-slate-600 mb-4">Interested in partnering with us?</p>
       <a
         href="{% url 'contact' %}"
-        class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+        class="inline-flex items-center bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
       >
-        <i class="fas fa-handshake mr-2"></i>
+        <i class="fas fa-handshake mr-3"></i>
         Become a Partner
       </a>
     </div>
     {% else %}
-    <div class="text-center py-12">
-      <i class="fas fa-handshake text-5xl text-gray-300 mb-4"></i>
-      <h3 class="text-xl font-semibold text-gray-600 mb-2">
+    <div class="text-center py-12 bg-sky-50 rounded-2xl">
+      <i class="fas fa-handshake text-5xl text-sky-300 mb-4"></i>
+      <h3 class="text-xl font-semibold text-slate-600 mb-2">
         Our Partnership Network
       </h3>
-      <p class="text-gray-500 mb-6">
+      <p class="text-slate-500 mb-6">
         We work with various local and international organizations.
       </p>
       <a
         href="{% url 'contact' %}"
-        class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+        class="inline-flex items-center bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
       >
+        <i class="fas fa-handshake mr-3"></i>
         Partner With Us
       </a>
     </div>

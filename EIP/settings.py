@@ -140,12 +140,42 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ========== CACHE CONFIGURATION ==========
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+# ========== CACHE CONFIGURATION ==========
+# Redis cache for production, fallback to local memory for development
+if os.getenv('REDIS_URL'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': os.getenv('REDIS_URL'),
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'CONNECTION_POOL_KWARGS': {
+                    'max_connections': 100,
+                    'retry_on_timeout': True,
+                },
+                'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
+                'IGNORE_EXCEPTIONS': True,  # Prevents cache failures from crashing app
+            },
+            'KEY_PREFIX': 'eip_',
+            'TIMEOUT': 300,  # 5 minutes default
+            'VERSION': 1,
+        }
     }
-}
+
+    # Use Redis for session storage in production
+    SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+    SESSION_CACHE_ALIAS = 'default'
+
+    print("✅ Redis cache configured")
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+            'TIMEOUT': 60,  # 1 minute for development
+        }
+    }
+    print("⚠️ Using local memory cache (Redis not configured)")
 
 # ========== SECURITY SETTINGS ==========
 # Only enable security settings in production
